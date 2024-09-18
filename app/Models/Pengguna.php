@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Pengguna extends Model
 {
@@ -17,7 +18,9 @@ class Pengguna extends Model
         'role',
         'nama',
     ];
-
+ protected $hidden = [
+        'password',
+    ];
     // Relasi dengan model Pegawai, Instruktur, dan Siswa
     public function pegawai()
     {

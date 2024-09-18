@@ -34,13 +34,24 @@ return [
     | Supported: "session"
     |
     */
-
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'pengguna',
     ],
+
+    'api' => [
+        'driver' => 'token',
+        'provider' => 'pengguna',
+        'hash' => false,
+    ],
+],
+    // 'guards' => [
+    //     'web' => [
+    //         'driver' => 'session',
+    //         'provider' => 'users',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -58,12 +69,18 @@ return [
     | Supported: "database", "eloquent"
     |
     */
+'providers' => [
+    'pengguna' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pengguna::class,
+    ],
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+    // 'providers' => [
+    //     'users' => [
+    //         'driver' => 'eloquent',
+    //         // 'model' => env('AUTH_MODEL', App\Models\Pengguna::class),
+    //         'model' => App\Models\Pengguna::class,
+    //     ],
 
         // 'users' => [
         //     'driver' => 'database',

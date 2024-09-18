@@ -1,0 +1,24 @@
+#wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar-wrapper {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-x: hidden;
+    transition: all 0.3s;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: relative;
+    padding-left: 250px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
+}
