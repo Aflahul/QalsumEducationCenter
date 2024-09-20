@@ -11,19 +11,17 @@ class Kelas extends Model
 
     protected $table = 'kelas';
 
+    // Tentukan kolom mana yang dapat diisi
     protected $fillable = [
         'nama_kelas',
         'deskripsi',
-        'jalur',
+        'biaya_reguler',
+        'biaya_private'
     ];
 
+    // Relasi ke tabel `Jadwal`
     public function jadwals()
     {
-        return $this->hasMany(Jadwal::class, 'kelas_id');
-    }
-
-    public function nilais()
-    {
-        return $this->hasMany(Nilai::class, 'kelas_id');
+        return $this->hasMany(Jadwal::class, 'nama_kelas', 'nama_kelas');
     }
 }

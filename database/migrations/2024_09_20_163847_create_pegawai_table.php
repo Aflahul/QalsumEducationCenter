@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+// return new class extends Migration
+class CreatePegawaiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +13,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pegawai', function (Blueprint $table) {
-            $table->id(); // Kolom id auto-increment
-            $table->string('pegawai_id', 20)->unique(); // pegawai_id sebagai unique
-            $table->string('nama');
-            $table->string('username')->unique();
+            $table->id();
+            $table->string('pegawai_id')->unique();
+            $table->string('nama')->unique();
+            $table->string('username')->unique(); // Kolom yang akan berelasi ke pengguna
             $table->date('tanggal_lahir');
-            $table->text('alamat');
+            $table->string('alamat');
             $table->string('kontak_hp');
+            $table->string('jabatan');
             $table->string('pendidikan_terakhir');
             $table->string('foto')->nullable();
-            $table->string('jenis_kelamin');
-            $table->string('jabatan');
             $table->timestamps();
         });
     }

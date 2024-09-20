@@ -1,32 +1,27 @@
 <?php
 
-// database/seeders/PenggunaSeeder.php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pengguna;
 use Illuminate\Support\Facades\Hash;
 
 class PenggunaSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('pengguna')->insert([
-            [
-                'username' => 'admin',
-                'password' => Hash::make('admin'),
-                'role' => 'admin',
-                'nama' => 'Admin Utama',
-            ],
-            [
-                'username' => 'instruktur1',
-                'password' => Hash::make('instruktur1'),
-                'role' => 'instruktur',
-                'nama' => 'Instruktur Pertama',
-            ],
-            // Tambahkan pengguna lain sesuai kebutuhan
+        Pengguna::create([
+            'username' => 'instruktur1',
+            'password' => Hash::make('password123'),
+            'nama' => 'Instruktur Pertama',
+            'role' => 'instruktur'
+        ]);
+
+        Pengguna::create([
+            'username' => 'admin1',
+            'password' => Hash::make('password123'),
+            'nama' => 'Admin Pertama',
+            'role' => 'admin'
         ]);
     }
 }
-

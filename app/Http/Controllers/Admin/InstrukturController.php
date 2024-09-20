@@ -9,12 +9,23 @@ use Illuminate\Http\Request;
 
 class InstrukturController extends Controller
 {
+    // public function index()
+    // {
+    //     // Ambil semua instruktur dari tabel pegawai
+    //     $instruktur = Pegawai::where('jabatan', 'instruktur')->first();
+
+    //     // Ambil semua jadwal yang diampu oleh instruktur tersebut
+    //     if ($instruktur) {
+    //         $jadwalKelas = $instruktur->jadwals()->with('kelas')->get();
+    //     } else {
+    //         $jadwalKelas = collect(); // Jika tidak ada instruktur, jadwalKelas kosong
+    //     }
+        
+    // }
     public function index()
     {
-        $pegawai = Pegawai::where('jabatan', 'instruktur')->get(); // Mengambil hanya pegawai dengan jabatan instruktur
-        return view('admin.instruktur.index', compact('pegawai')); // Mengirim data pegawai ke view
-        
-        
+        $pegawai = Pegawai::with('jadwals.kelas')->where('jabatan', 'instruktur')->get();
+        return view('admin.instruktur.index', compact('pegawai'));
     }
 
     public function edit($id)

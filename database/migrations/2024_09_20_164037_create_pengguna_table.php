@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+// return new class extends Migration
+class CreatePenggunaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +14,14 @@ return new class extends Migration
     {
         Schema::create('pengguna', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
+            $table->string('username')->unique(); // Foreign key ke pegawai
             $table->string('password');
             $table->string('nama');
-            $table->string('role');
+            $table->enum('role', ['admin', 'instruktur', 'siswa']);
             $table->timestamps();
+
+            // Relasi foreign key ke tabel pegawai dengan cascade delete
+            $table->foreign('username')->references('username')->on('pegawai')->onDelete('cascade');
         });
     }
 

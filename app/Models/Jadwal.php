@@ -11,19 +11,26 @@ class Jadwal extends Model
 
     protected $table = 'jadwal';
 
+    // Tentukan kolom mana yang dapat diisi
     protected $fillable = [
-        'kelas_id',
-        'instruktur_id',
-        'waktu',
+        'nama_jadwal',
+        'nama_kelas',
+        'jalur',
+        'instruktur',
+        'hari',
+        'jam_mulai',
+        'jam_selesai'
     ];
 
+    // Relasi ke tabel `Kelas`
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Kelas::class, 'nama_kelas', 'nama_kelas');
     }
 
+    // Relasi ke tabel `Pegawai` (instruktur)
     public function instruktur()
     {
-        return $this->belongsTo(Pegawai::class, 'instruktur_id');
+        return $this->belongsTo(Pegawai::class, 'instruktur', 'nama');
     }
 }

@@ -40,7 +40,11 @@
                             @foreach ($pegawai as $p)
                                 <tr>
                                     <td>{{ $p->nama }}</td>
-                                    <td>Kelas id -> nama kelas</td>
+                                    <td class="text-capitalize">
+                                        @foreach ($p->jadwals as $jadwal)
+                                            {{ $jadwal->nama_kelas }} - {{ $jadwal->jalur }}<br>
+                                        @endforeach
+                                    </td>
                                     <td>{{ $p->kontak_hp }}</td>
                                     <td>
                                         <!-- Tombol Lihat Detail -->
@@ -80,22 +84,25 @@
                                             <div class="modal-body">
                                                 <img src="{{ asset($p->foto) }}" alt="Foto Pegawai" class="img-fluid">
                                                 <p><strong>Nama:</strong> {{ $p->nama }}</p>
-                                                {{-- <p><strong>Jabatan:</strong> {{ $p->jabatan }}</p> --}}
-                                                <p>Nama Kelas yg di ampuh</p>
+                                                <p><strong>Kelas yang Diampu:</strong></p>
+                                                <ul>
+                                                    @foreach ($p->jadwals as $jadwal)
+                                                        <li class="text-capitalize">{{ $jadwal->nama_kelas }} - {{ $jadwal->jalur }}</li>
+                                                    @endforeach
+                                                </ul>
                                                 <p><strong>Tanggal Lahir:</strong> {{ $p->tanggal_lahir }}</p>
                                                 <p><strong>Alamat:</strong> {{ $p->alamat }}</p>
                                                 <p><strong>Kontak:</strong> {{ $p->kontak_hp }}</p>
-                                                <p><strong>Pendidikan Terakhir:</strong> {{ $p->pendidikan_terakhir }}
-                                                </p>
+                                                <p><strong>Pendidikan Terakhir:</strong> {{ $p->pendidikan_terakhir }}</p>
                                                 <p><strong>Jenis Kelamin:</strong> {{ $p->jenis_kelamin }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal Edit Pegawai -->
+                                <!-- Modal Edit Instruktur -->
                                 <div class="modal fade" id="editPegawaiModal-{{ $p->id }}" tabindex="-1"
                                     aria-labelledby="editPegawaiModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="editPegawaiModalLabel">Edit Instruktur</h5>
@@ -109,67 +116,66 @@
                                                     method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
-                                                    <div class="form-group">
-                                                        <label for="username">Username</label>
-                                                        <input type="text" name="username" class="form-control"
-                                                            id="username" value="{{ $p->username }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="nama">Nama</label>
-                                                        <input type="text" name="nama" class="form-control"
-                                                            id="nama" value="{{ $p->nama }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                        <input type="date" name="tanggal_lahir" class="form-control"
-                                                            id="tanggal_lahir" value="{{ $p->tanggal_lahir }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="alamat">Alamat</label>
-                                                        <textarea name="alamat" class="form-control" id="alamat" required>{{ $p->alamat }}</textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="kontak_hp">Kontak HP</label>
-                                                        <input type="text" name="kontak_hp" class="form-control"
-                                                            id="kontak_hp" value="{{ $p->kontak_hp }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
-                                                        <input type="text" name="pendidikan_terakhir"
-                                                            class="form-control" id="pendidikan_terakhir"
-                                                            value="{{ $p->pendidikan_terakhir }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                                                        <select name="jenis_kelamin" class="form-control"
-                                                            id="jenis_kelamin" required>
-                                                            <option value="Laki-laki"
-                                                                {{ $p->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
-                                                                Laki-laki</option>
-                                                            <option
-                                                                value="Perempuan"{{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
-                                                                Perempuan</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jabatan">Kelas</label>
-                                                        <select name="kelas" class="form-control" id="kelas"
-                                                            required>
-                                                            <option value="TIK A"> TIK A</option>
-                                                            <option value="TIK B"> TIK B</option>
-                                                            {{-- <option value="resepsionis" {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>Resepsionis</option> --}}
+                                                    <div class="row">
+                                                        <!-- Kolom Kiri -->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3">
+                                                                <label for="username">Username</label>
+                                                                <input type="text" name="username" class="form-control"
+                                                                    id="username" value="{{ $p->username }}" required>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="nama">Nama</label>
+                                                                <input type="text" name="nama" class="form-control"
+                                                                    id="nama" value="{{ $p->nama }}" required>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                                                <input type="date" name="tanggal_lahir"
+                                                                    class="form-control" id="tanggal_lahir"
+                                                                    value="{{ $p->tanggal_lahir }}" required>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                                                                <select name="jenis_kelamin" class="form-control"
+                                                                    id="jenis_kelamin" required>
+                                                                    <option value="Laki-laki"
+                                                                        {{ $p->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
+                                                                        Laki-laki</option>
+                                                                    <option value="Perempuan"
+                                                                        {{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                                                        Perempuan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
-                                                        </select>
+                                                        <!-- Kolom Kanan -->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3">
+                                                                <label for="pendidikan_terakhir">Pendidikan
+                                                                    Terakhir</label>
+                                                                <input type="text" name="pendidikan_terakhir"
+                                                                    class="form-control" id="pendidikan_terakhir"
+                                                                    value="{{ $p->pendidikan_terakhir }}" required>
+                                                            </div>
+                                                            
+                                                            <div class="form-group mb-3">
+                                                                <label for="alamat">Alamat</label>
+                                                                <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ $p->alamat }}</textarea>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="foto">Foto</label>
+                                                                <input type="file" name="foto"
+                                                                    class="form-control-file" id="foto">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <!-- Input hidden untuk jabatan -->
-                                                    <input type="hidden" name="jabatan" value="instruktur">
 
-                                                    <div class="form-group">
-                                                        <label for="foto">Foto</label>
-                                                        <input type="file" name="foto" class="form-control-file"
-                                                            id="foto" accept="image/*">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -183,7 +189,7 @@
         </div>
     </main>
 
-    <!-- Modal Tambah Pegawai -->
+    <!-- Modal Tambah Instruktur -->
     <div class="modal fade" id="addPegawaiModal" tabindex="-1" aria-labelledby="addPegawaiModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -236,17 +242,7 @@
                                     <input type="text" name="pendidikan_terakhir" class="form-control"
                                         id="pendidikan_terakhir" placeholder="Masukkan pendidikan terakhir" required>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="kelas">Kelas</label>
-                                    <select name="kelas" class="form-control" id="kelas" required>
-                                        <option value="TIK A">TIK A</option>
-                                        <option value="TIK B">TIK B</option>
-
-                                    </select>
-                                    <!-- Input hidden untuk jabatan -->
-                                    <input type="hidden" name="jabatan" value="instruktur">
-
-                                </div>
+                                
                                 <div class="form-group mb-3">
                                     <label for="alamat">Alamat</label>
                                     <textarea name="alamat" class="form-control" id="alamat" placeholder="Masukkan alamat lengkap" rows="3"
@@ -268,5 +264,6 @@
             </div>
         </div>
     </div>
+
     @include('admin.instruktur.modal')
 @endsection

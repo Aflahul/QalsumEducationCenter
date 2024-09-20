@@ -11,21 +11,29 @@ class Pegawai extends Model
 
     protected $table = 'pegawai';
 
+    // Tentukan kolom mana yang dapat diisi
     protected $fillable = [
-        'pengguna_id',
-        'username',
+        'pegawai_id',
         'nama',
+        'username',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
         'pendidikan_terakhir',
-        'foto',
-        'jenis_kelamin',
         'jabatan',
+        'foto'
     ];
 
+    // Relasi ke tabel `Pengguna`
     public function pengguna()
     {
-        return $this->belongsTo(Pengguna::class, 'username', 'username');
+        return $this->hasOne(Pengguna::class, 'username', 'username');
+        // return $this->belongsTo(Pengguna::class, 'username', 'username');
+    }
+
+    // Relasi ke tabel `Jadwal` (untuk instruktur)
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'instruktur', 'nama');
     }
 }
