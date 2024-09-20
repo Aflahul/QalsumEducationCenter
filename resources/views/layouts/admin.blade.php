@@ -15,7 +15,7 @@
 
 <body class="sb-nav-fixed">
     @include('Partials.navbar')
-    
+
     <div id="layoutSidenav">
         @include('Partials.sidebar')
         <div id="layoutSidenav_content">
@@ -49,6 +49,28 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Menampilkan modal pemberitahuan
+        @if (session('success'))
+            $('#notificationMessage').text('{{ session('success') }}');
+            $('#notificationModal').modal('show');
+        @elseif (session('error'))
+            $('#notificationMessage').text('{{ session('error') }}');
+            $('#notificationModal').modal('show');
+        @endif
+
+        // Menangani tombol hapus
+        $('.btn-delete').on('click', function() {
+            const form = $(this).data('form');
+            $('#deleteForm').attr('action', form);
+            $('#confirmDeleteModal').modal('show');
+        });
+    </script>
+
+
 </body>
 
 </html>

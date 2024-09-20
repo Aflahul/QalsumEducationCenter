@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kontak_hp');
             $table->string('foto')->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('jenis_kelamin');
             $table->timestamps();
         });
     }

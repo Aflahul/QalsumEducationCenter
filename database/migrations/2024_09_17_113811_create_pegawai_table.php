@@ -12,8 +12,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pegawai', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('pengguna_id');
+            $table->id(); // Kolom id auto-increment
+            $table->string('pegawai_id', 20)->unique(); // pegawai_id sebagai unique
             $table->string('nama');
             $table->string('username')->unique();
             $table->date('tanggal_lahir');
@@ -21,11 +21,9 @@ return new class extends Migration
             $table->string('kontak_hp');
             $table->string('pendidikan_terakhir');
             $table->string('foto')->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('jenis_kelamin');
             $table->string('jabatan');
             $table->timestamps();
-
-            $table->foreign('pengguna_id')->references('id')->on('pengguna')->onDelete('cascade');
         });
     }
 
