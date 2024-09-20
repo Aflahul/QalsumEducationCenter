@@ -3,27 +3,27 @@
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Pegawai | Staf</h1>
+            <h1 class="mt-4">Pegawai | Instruktur</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Pegawai | Staf</li>
+                <li class="breadcrumb-item active">Pegawai | Instruktur</li>
             </ol>
             <div class="mb-4">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPegawaiModal">
-                    Tambah Staf
+                    Tambah Instruktur
                 </button>
             </div>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Daftar Staf
+                    Daftar Instruktur
                 </div>
                 <div class="card-body">
                     <table id="datatablesSimple" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Jabatan</th>
+                                <th>Kelas</th>
                                 <th>Kontak</th>
                                 <th>Aksi</th>
                             </tr>
@@ -31,7 +31,7 @@
                         <tfoot>
                             <tr>
                                 <th>Nama</th>
-                                <th>Jabatan</th>
+                                <th>Kelas</th>
                                 <th>Kontak</th>
                                 <th>Aksi</th>
                             </tr>
@@ -40,7 +40,7 @@
                             @foreach ($pegawai as $p)
                                 <tr>
                                     <td>{{ $p->nama }}</td>
-                                    <td>{{ $p->jabatan }}</td>
+                                    <td>Kelas id -> nama kelas</td>
                                     <td>{{ $p->kontak_hp }}</td>
                                     <td>
                                         <!-- Tombol Lihat Detail -->
@@ -54,7 +54,7 @@
                                             Edit
                                         </button>
                                         <!-- Tombol Hapus -->
-                                        <form action="{{ route('admin.pegawai.destroy', $p->id) }}" method="POST"
+                                        <form action="{{ route('admin.instruktur.destroy', $p->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -71,7 +71,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="detailPegawaiModalLabel">Detail Staf</h5>
+                                                <h5 class="modal-title" id="detailPegawaiModalLabel">Detail Instruktur</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -80,7 +80,8 @@
                                             <div class="modal-body">
                                                 <img src="{{ asset($p->foto) }}" alt="Foto Pegawai" class="img-fluid">
                                                 <p><strong>Nama:</strong> {{ $p->nama }}</p>
-                                                <p><strong>Jabatan:</strong> {{ $p->jabatan }}</p>
+                                                {{-- <p><strong>Jabatan:</strong> {{ $p->jabatan }}</p> --}}
+                                                <p>Nama Kelas yg di ampuh</p>
                                                 <p><strong>Tanggal Lahir:</strong> {{ $p->tanggal_lahir }}</p>
                                                 <p><strong>Alamat:</strong> {{ $p->alamat }}</p>
                                                 <p><strong>Kontak:</strong> {{ $p->kontak_hp }}</p>
@@ -97,15 +98,15 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="editPegawaiModalLabel">Edit Staf</h5>
+                                                <h5 class="modal-title" id="editPegawaiModalLabel">Edit Instruktur</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('admin.pegawai.update', $p->id) }}" method="POST"
-                                                    enctype="multipart/form-data">
+                                                <form action="{{ route('admin.instruktur.update', $p->id) }}"
+                                                    method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="form-group">
@@ -145,20 +146,24 @@
                                                             <option value="Laki-laki"
                                                                 {{ $p->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
                                                                 Laki-laki</option>
-                                                            <option value="Perempuan"{{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                                            <option
+                                                                value="Perempuan"{{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                 Perempuan</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="jabatan">Jabatan</label>
-                                                        <select name="jabatan" class="form-control"
-                                                            id="jabatan" required>
-                                                            <option value="admin" {{ $p->jabatan == 'admin' ? 'selected' : '' }}>Administrator</option>
-                                                            <option value="manager" {{ $p->jabatan == 'manager' ? 'selected' : '' }}>Manager</option>
-                                                            <option value="resepsionis" {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>Resepsionis</option>
-                                                            
+                                                        <label for="jabatan">Kelas</label>
+                                                        <select name="kelas" class="form-control" id="kelas"
+                                                            required>
+                                                            <option value="TIK A"> TIK A</option>
+                                                            <option value="TIK B"> TIK B</option>
+                                                            {{-- <option value="resepsionis" {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>Resepsionis</option> --}}
+
                                                         </select>
                                                     </div>
+                                                    <!-- Input hidden untuk jabatan -->
+                                                    <input type="hidden" name="jabatan" value="instruktur">
+
                                                     <div class="form-group">
                                                         <label for="foto">Foto</label>
                                                         <input type="file" name="foto" class="form-control-file"
@@ -184,13 +189,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addPegawaiModalLabel">Tambah Staf Baru</h5>
+                    <h5 class="modal-title" id="addPegawaiModalLabel">Tambah Instruktur Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.pegawai.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.instruktur.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <!-- Kolom Kiri -->
@@ -232,13 +237,15 @@
                                         id="pendidikan_terakhir" placeholder="Masukkan pendidikan terakhir" required>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="jabatan">Jabatan</label>
-                                    <select name="jabatan" class="form-control" id="jabatan" required>
-                                        <option value="admin">Administrator</option>
-                                        <option value="manager">Manager</option>
-                                        <option value="resepsionis">Resepsionis</option>
+                                    <label for="kelas">Kelas</label>
+                                    <select name="kelas" class="form-control" id="kelas" required>
+                                        <option value="TIK A">TIK A</option>
+                                        <option value="TIK B">TIK B</option>
 
                                     </select>
+                                    <!-- Input hidden untuk jabatan -->
+                                    <input type="hidden" name="jabatan" value="instruktur">
+
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="alamat">Alamat</label>
@@ -261,5 +268,5 @@
             </div>
         </div>
     </div>
-    @include('admin.pegawai.modal')
+    @include('admin.instruktur.modal')
 @endsection

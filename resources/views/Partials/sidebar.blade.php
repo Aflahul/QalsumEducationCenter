@@ -43,8 +43,8 @@
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ url('admin/pegawai') }}">Staf</a>
-                                        <a class="nav-link" href="#">Instruktur</a>
+                                        <a class="nav-link" href="{{ url('admin/staff') }}">Staff</a>
+                                        <a class="nav-link" href="{{ url('admin/instruktur') }}">Instruktur</a>
                                     </nav>
                                 </div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"

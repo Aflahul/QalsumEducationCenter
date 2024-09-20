@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kelas');
             $table->text('deskripsi');
-            $table->enum('jalur', ['private', 'regular']);
+            $table->string('jalur');
             $table->timestamps();
         });
     }

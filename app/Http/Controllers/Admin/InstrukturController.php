@@ -7,21 +7,20 @@ use App\Models\Pegawai;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
-class PegawaiController extends Controller
+class InstrukturController extends Controller
 {
     public function index()
     {
-        $pegawai = Pegawai::where('jabatan', '!=', 'instruktur')->get();
-        // $pegawai = Pegawai::all(); // Mengambil semua data pegawai dari tabel pegawai
-         return view('admin.pegawai.index', compact('pegawai')); // Mengirim data pegawai ke view
-
+        $pegawai = Pegawai::where('jabatan', 'instruktur')->get(); // Mengambil hanya pegawai dengan jabatan instruktur
+        return view('admin.instruktur.index', compact('pegawai')); // Mengirim data pegawai ke view
+        
         
     }
 
     public function edit($id)
     {
         $pegawai = Pegawai::find($id);
-        return view('admin.pegawai.edit', compact('pegawai'));
+        return view('admin.instruktur.edit', compact('pegawai'));
     }
 
     public function store(Request $request)
@@ -71,17 +70,17 @@ class PegawaiController extends Controller
         $pegawai->save(); // Simpan pegawai
 
         // Simpan pengguna jika jabatan adalah admin
-        if ($request->jabatan === 'admin') {
+        if ($request->jabatan === 'instruktur') {
             $pengguna = new Pengguna();
             $pengguna->username = $pegawai->username;
             $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
-            $pengguna->role = 'admin';
+            $pengguna->role = 'instruktur';
             $pengguna->nama = $pegawai->nama;
             $pengguna->save();
         }
 
         // return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
-        return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Pegawai berhasil ditambahkan.');
 
     }
 
@@ -151,35 +150,35 @@ class PegawaiController extends Controller
         \Log::info('Jabatan baru: ' . $validatedData['jabatan']);
 
         // Periksa perubahan jabatan dan kelola data pengguna
-        if ($jabatanLama === 'admin' && $validatedData['jabatan'] !== 'admin') {
-         // Hapus data pengguna jika jabatan berubah dari admin
+        if ($jabatanLama === 'instruktur' && $validatedData['jabatan'] !== 'instruktur') {
+        // Hapus data pengguna jika jabatan berubah dari instruktur
             $pengguna = Pengguna::where('username', $pegawai->username)->first();
-            if ($pengguna) {
-                $pengguna->delete(); // Hapus data pengguna
-                \Log::info('Pengguna dihapus: ' . $pegawai->username);
+                if ($pengguna) {
+                    $pengguna->delete(); // Hapus data pengguna
+                    \Log::info('Pengguna dihapus: ' . $pegawai->username);
+                }
+            } elseif ($jabatanLama === 'instruktur' && $validatedData['jabatan'] === 'instruktur') {
+                // Update data pengguna jika tetap instruktur
+                $pengguna = Pengguna::where('username', $pegawai->username)->first();
+                if ($pengguna) {
+                    $pengguna->username = $validatedData['username']; // Update username jika diubah
+                    $pengguna->nama = $validatedData['nama']; // Update nama
+                    $pengguna->save();
+                    \Log::info('Data pengguna diupdate: ' . $pegawai->username);
+                }
+            } elseif ($jabatanLama !== 'instruktur' && $validatedData['jabatan'] === 'instruktur') {
+                // Buat data pengguna baru jika jabatan berubah menjadi instruktur
+                $pengguna = Pengguna::where('username', $pegawai->username)->first();
+                if (!$pengguna) {
+                    $pengguna = new Pengguna();
+                    $pengguna->username = $validatedData['username'];
+                    $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
+                    $pengguna->role = 'instruktur';
+                    $pengguna->nama = $validatedData['nama'];
+                    $pengguna->save();
+                    \Log::info('Pengguna baru dibuat: ' . $pegawai->username);
+                }
             }
-        } elseif ($jabatanLama === 'admin' && $validatedData['jabatan'] === 'admin') {
-            // Update data pengguna jika tetap admin
-            $pengguna = Pengguna::where('username', $pegawai->username)->first();
-            if ($pengguna) {
-                $pengguna->username = $validatedData['username']; // Update username jika diubah
-                $pengguna->nama = $validatedData['nama']; // Update nama
-                $pengguna->save();
-                \Log::info('Data pengguna diupdate: ' . $pegawai->username);
-            }
-        } elseif ($jabatanLama !== 'admin' && $validatedData['jabatan'] === 'admin') {
-            // Buat data pengguna baru jika jabatan berubah menjadi admin
-            $pengguna = Pengguna::where('username', $pegawai->username)->first();
-            if (!$pengguna) {
-                $pengguna = new Pengguna();
-                $pengguna->username = $validatedData['username'];
-                $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
-                $pengguna->role = 'admin';
-                $pengguna->nama = $validatedData['nama'];
-                $pengguna->save();
-                \Log::info('Pengguna baru dibuat: ' . $pegawai->username);
-            }
-        }
 
 
         // Isi data pegawai satu per satu
@@ -201,7 +200,9 @@ class PegawaiController extends Controller
         \Log::info('Foto setelah save: ' . $pegawai->foto);
         \Log::info('Jabatan setelah save: ' . $pegawai->jabatan);
 
-        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Data pegawai berhasil diperbarui.');
     }
+
+
 
 }

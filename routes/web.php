@@ -1,17 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\PegawaiController;
-use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\KelasController;
-use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
+use App\Http\Controllers\Admin\SiswaController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\Admin\InstrukturController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\SertifikatController;
-use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardController;
 use App\Http\Controllers\Instruktur\NilaiController;
+use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Instruktur\JadwalController as InstrukturJadwalController;
-use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardController;
 
 // Route untuk halaman utama (home)
 Route::get('/', function () {
@@ -57,8 +58,8 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Routes untuk mengelola pegawai
-    Route::resource('pegawai', PegawaiController::class)->names([
+    // Routes untuk mengelola staf
+    Route::resource('staff', PegawaiController::class)->names([
         'index' => 'admin.pegawai.index',
         'create' => 'admin.pegawai.create',
         'store' => 'admin.pegawai.store',
@@ -67,6 +68,17 @@ Route::prefix('admin')->group(function () {
         'update' => 'admin.pegawai.update',
         'destroy' => 'admin.pegawai.destroy',
     ]);
+    // Routes untuk mengelola Instruktur
+    Route::resource('instruktur', InstrukturController::class)->names([
+        'index' => 'admin.instruktur.index',
+        'create' => 'admin.instruktur.create',
+        'store' => 'admin.instruktur.store',
+        'show' => 'admin.instruktur.show',
+        'edit' => 'admin.instruktur.edit',
+        'update' => 'admin.instruktur.update',
+        'destroy' => 'admin.instruktur.destroy',
+    ]);
+    
 
     // Routes untuk mengelola siswa
     Route::resource('siswa', SiswaController::class)->names([

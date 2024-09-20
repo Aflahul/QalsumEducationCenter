@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->date('tanggal_pendaftaran');
-            $table->enum('status_pendaftaran', ['diterima', 'ditolak', 'diproses'])->default('diproses');
+            $table->string('status_pendaftaran');
             $table->timestamps();
         });
     
