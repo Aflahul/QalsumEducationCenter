@@ -34,6 +34,91 @@ class InstrukturController extends Controller
         return view('admin.instruktur.edit', compact('pegawai'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     // Validasi input
+    //     $validatedData = $request->validate([
+    //         'username' => 'required|unique:pegawai',
+    //         'nama' => 'required',
+    //         'tanggal_lahir' => 'required|date',
+    //         'alamat' => 'required',
+    //         'kontak_hp' => 'required',
+    //         'pendidikan_terakhir' => 'required',
+    //         'foto' => 'nullable|image',
+    //         'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+    //         // 'jabatan' => 'required',
+    //     ]);
+        
+
+    //     // Menghasilkan pegawai_id
+    //     $lastPegawai = Pegawai::orderBy('id', 'desc')->first();
+    //     $nextId = $lastPegawai ? intval(substr($lastPegawai->pegawai_id, 2)) + 1 : 1;
+    //     $pegawaiId = 'PG' . str_pad($nextId, 5, '0', STR_PAD_LEFT); // Menghasilkan PG00001, PG00002, dll.
+
+    //     // Buat dan simpan pegawai
+    //     $pegawai = new Pegawai();
+    //     $pegawai->pegawai_id = $pegawaiId; // Pastikan pegawai_id diisi
+    //     $pegawai->username = $validatedData['username'];
+    //     $pegawai->nama = $validatedData['nama'];
+    //     $pegawai->tanggal_lahir = $validatedData['tanggal_lahir'];
+    //     $pegawai->alamat = $validatedData['alamat'];
+    //     $pegawai->kontak_hp = $validatedData['kontak_hp'];
+    //     $pegawai->pendidikan_terakhir = $validatedData['pendidikan_terakhir'];
+
+    //     // Jika ada foto, simpan lokasi foto
+    //     if ($request->hasFile('foto')) {
+    //         // Bersihkan nama dari spasi atau karakter yang tidak valid untuk nama file
+    //         $nama = str_replace(' ', '-', strtolower($pegawai->nama));
+    //         $extension = $request->file('foto')->getClientOriginalExtension(); // Dapatkan ekstensi file
+    //         $filename = 'foto-' . $nama . '.' . $extension; // Nama file akan menjadi foto-nama.jpg
+
+    //         // Simpan file ke folder uploads/pegawai
+    //         $path = $request->file('foto')->move(public_path('uploads/pegawai'), $filename);
+    //         $pegawai->foto = 'uploads/pegawai/' . $filename; // Simpan path ke database
+    //     }
+
+    //     $pegawai->jenis_kelamin = $validatedData['jenis_kelamin'];
+    //     $pegawai->jabatan = $validatedData['jabatan'];
+        
+    //     $pegawai->save(); // Simpan pegawai
+
+    //     // Simpan pengguna jika jabatan adalah admin
+    //     if ($request->jabatan === 'instruktur') {
+    //         $pengguna = new Pengguna();
+    //         $pengguna->username = $pegawai->username;
+    //         $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
+    //         $pengguna->role = 'instruktur';
+    //         $pengguna->nama = $pegawai->nama;
+    //         $pengguna->save();
+    //     }
+
+    //     // return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
+    //     return redirect()->route('admin.instruktur.index')->with('success', 'Pegawai berhasil ditambahkan.');
+
+    // }
+
+    // public function destroy($id)
+    // {
+    //     // Temukan pegawai berdasarkan ID
+    //     $pegawai = Pegawai::findOrFail($id);
+        
+    //     // Hapus data pengguna yang terkait jika ada
+    //     $pengguna = Pengguna::where('username', $pegawai->username)->first();
+    //     if ($pengguna) {
+    //         $pengguna->delete(); // Hapus data pengguna
+    //     }
+
+    //     // Hapus foto pegawai dari storage jika ada
+    //     if ($pegawai->foto && file_exists(public_path($pegawai->foto))) {
+    //         unlink(public_path($pegawai->foto));
+    //     }
+
+    //     // Hapus data pegawai
+    //     $pegawai->delete();
+
+    //     // Redirect kembali ke halaman index dengan pesan sukses
+    //     return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai dan pengguna terkait berhasil dihapus.');
+    // }
     public function store(Request $request)
     {
         // Validasi input
@@ -46,7 +131,6 @@ class InstrukturController extends Controller
             'pendidikan_terakhir' => 'required',
             'foto' => 'nullable|image',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'jabatan' => 'required',
         ]);
 
         // Menghasilkan pegawai_id
@@ -56,7 +140,7 @@ class InstrukturController extends Controller
 
         // Buat dan simpan pegawai
         $pegawai = new Pegawai();
-        $pegawai->pegawai_id = $pegawaiId; // Pastikan pegawai_id diisi
+        $pegawai->pegawai_id = $pegawaiId;
         $pegawai->username = $validatedData['username'];
         $pegawai->nama = $validatedData['nama'];
         $pegawai->tanggal_lahir = $validatedData['tanggal_lahir'];
@@ -64,58 +148,30 @@ class InstrukturController extends Controller
         $pegawai->kontak_hp = $validatedData['kontak_hp'];
         $pegawai->pendidikan_terakhir = $validatedData['pendidikan_terakhir'];
 
-        // Jika ada foto, simpan lokasi foto
+        // Simpan foto jika ada
         if ($request->hasFile('foto')) {
-            // Bersihkan nama dari spasi atau karakter yang tidak valid untuk nama file
             $nama = str_replace(' ', '-', strtolower($pegawai->nama));
-            $extension = $request->file('foto')->getClientOriginalExtension(); // Dapatkan ekstensi file
-            $filename = 'foto-' . $nama . '.' . $extension; // Nama file akan menjadi foto-nama.jpg
-
-            // Simpan file ke folder uploads/pegawai
-            $path = $request->file('foto')->move(public_path('uploads/pegawai'), $filename);
-            $pegawai->foto = 'uploads/pegawai/' . $filename; // Simpan path ke database
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $filename = 'foto-' . $nama . '.' . $extension;
+            $request->file('foto')->move(public_path('uploads/pegawai'), $filename);
+            $pegawai->foto = 'uploads/pegawai/' . $filename;
         }
 
+        // Tetapkan jabatan sebagai 'instruktur'
         $pegawai->jenis_kelamin = $validatedData['jenis_kelamin'];
-        $pegawai->jabatan = $validatedData['jabatan'];
-        $pegawai->save(); // Simpan pegawai
-
-        // Simpan pengguna jika jabatan adalah admin
-        if ($request->jabatan === 'instruktur') {
-            $pengguna = new Pengguna();
-            $pengguna->username = $pegawai->username;
-            $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
-            $pengguna->role = 'instruktur';
-            $pengguna->nama = $pegawai->nama;
-            $pengguna->save();
-        }
-
-        // return redirect()->route('admin.pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
-        return redirect()->route('admin.instruktur.index')->with('success', 'Pegawai berhasil ditambahkan.');
-
-    }
-
-    public function destroy($id)
-    {
-        // Temukan pegawai berdasarkan ID
-        $pegawai = Pegawai::findOrFail($id);
+        $pegawai->jabatan = 'instruktur'; // Otomatis menetapkan jabatan sebagai 'instruktur'
         
-        // Hapus data pengguna yang terkait jika ada
-        $pengguna = Pengguna::where('username', $pegawai->username)->first();
-        if ($pengguna) {
-            $pengguna->delete(); // Hapus data pengguna
-        }
+        $pegawai->save();
 
-        // Hapus foto pegawai dari storage jika ada
-        if ($pegawai->foto && file_exists(public_path($pegawai->foto))) {
-            unlink(public_path($pegawai->foto));
-        }
+        // Simpan pengguna jika jabatan adalah instruktur
+        $pengguna = new Pengguna();
+        $pengguna->username = $pegawai->username;
+        $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
+        $pengguna->role = 'instruktur';
+        $pengguna->nama = $pegawai->nama;
+        $pengguna->save();
 
-        // Hapus data pegawai
-        $pegawai->delete();
-
-        // Redirect kembali ke halaman index dengan pesan sukses
-        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai dan pengguna terkait berhasil dihapus.');
+        return redirect()->route('admin.instruktur.index')->with('success', 'Instruktur berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)

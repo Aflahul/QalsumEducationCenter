@@ -41,16 +41,27 @@
                                 <tr>
                                     <td>{{ $p->nama }}</td>
                                     <td class="text-capitalize">
-                                        @foreach ($p->jadwals as $jadwal)
-                                            {{ $jadwal->kelas->nama_kelas }} ({{ $jadwal->kelas->jenis_kelas }}) <br>
-                                        @endforeach
+                                        @if ($p->jadwals->isEmpty())
+                                            Belum memiliki jadwal kelas
+                                            <!-- Tombol Tambahkan Jadwal -->
+                                            <br>
+                                            <a href="{{ route('admin.jadwal.index')  }}"
+                                                class="btn btn-primary btn-sm">
+                                                Tambahkan Sekarang
+                                            </a>
+                                        @else
+                                            @foreach ($p->jadwals as $jadwal)
+                                                {{ $jadwal->kelas->nama_kelas }} ({{ $jadwal->kelas->jenis_kelas }}) <br>
+                                            @endforeach
+                                        @endif
                                     </td>
+
                                     <td>{{ $p->kontak_hp }}</td>
                                     <td>
                                         <!-- Tombol Lihat Detail -->
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                             data-target="#detailPegawaiModal-{{ $p->id }}">
-                                            Lihat Detail
+                                            Detail
                                         </button>
                                         <!-- Tombol Edit -->
                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
@@ -152,7 +163,7 @@
                                                                     <option value="Perempuan"
                                                                         {{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                         Perempuan</option>
-                                                                    
+
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -162,10 +173,37 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="pendidikan_terakhir">Pendidikan
                                                                     Terakhir</label>
-                                                                <input type="text" name="pendidikan_terakhir"
-                                                                    class="form-control" id="pendidikan_terakhir"
-                                                                    value="{{ $p->pendidikan_terakhir }}" required>
+                                                                <select name="pendidikan_terakhir" class="form-control"
+                                                                    id="pendidikan_terakhir" required>
+                                                                    <option value="" disabled selected>Pilih
+                                                                        Pendidikan Terakhir</option>
+                                                                    {{-- <option value="SD"
+                                                                        {{ $p->pendidikan_terakhir == 'SD' ? 'selected' : '' }}>
+                                                                        SD</option>
+                                                                    <option value="SMP"
+                                                                        {{ $p->pendidikan_terakhir == 'SMP' ? 'selected' : '' }}>
+                                                                        SMP</option>
+                                                                    <option value="SMA"
+                                                                        {{ $p->pendidikan_terakhir == 'SMA' ? 'selected' : '' }}>
+                                                                        SMA</option>
+                                                                    <option value="D1"
+                                                                        {{ $p->pendidikan_terakhir == 'D1' ? 'selected' : '' }}>
+                                                                        D1</option>
+                                                                    <option value="D2"
+                                                                        {{ $p->pendidikan_terakhir == 'D2' ? 'selected' : '' }}>
+                                                                        D2</option> --}}
+                                                                    <option value="D3"
+                                                                        {{ $p->pendidikan_terakhir == 'D3' ? 'selected' : '' }}>
+                                                                        D3</option>
+                                                                    <option value="D4"
+                                                                        {{ $p->pendidikan_terakhir == 'D4' ? 'selected' : '' }}>
+                                                                        D4</option>
+                                                                    <option value="S1"
+                                                                        {{ $p->pendidikan_terakhir == 'S1' ? 'selected' : '' }}>
+                                                                        S1</option>
+                                                                </select>
                                                             </div>
+
 
                                                             <div class="form-group mb-3">
                                                                 <label for="alamat">Alamat</label>
@@ -208,6 +246,16 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="modal-body">
                     <form action="{{ route('admin.instruktur.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -246,9 +294,31 @@
                             <!-- Kolom Kanan -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
-                                    <input type="text" name="pendidikan_terakhir" class="form-control"
-                                        id="pendidikan_terakhir" placeholder="Masukkan pendidikan terakhir" required>
+                                    <label for="pendidikan_terakhir">Pendidikan
+                                        Terakhir</label>
+                                    <select name="pendidikan_terakhir" class="form-control" id="pendidikan_terakhir"
+                                        required>
+                                        <option value="" disabled selected>Pilih
+                                            Pendidikan Terakhir</option>
+                                        {{-- <option value="SD">
+                                            SD</option>
+                                        <option value="SMP">
+                                            SMP</option>
+                                        <option value="SMA">
+                                            SMA</option>
+                                        <option value="D1">
+                                            D1</option>
+                                        <option value="D2">
+                                            D2</option> --}}
+                                        <option value="D3">
+                                            D3</option>
+                                        <option value="D4">
+                                            D4</option>
+                                        <option value="S1">
+                                            S1</option>
+                                        <option value="S2">
+                                            S2</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group mb-3">

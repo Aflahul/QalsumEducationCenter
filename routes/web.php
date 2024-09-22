@@ -61,20 +61,20 @@ Route::prefix('admin')->group(function () {
     // Routes untuk mengelola staf
     Route::resource('staff', PegawaiController::class)->names([
         'index' => 'admin.pegawai.index',
-        // 'create' => 'admin.pegawai.create',
+        'create' => 'admin.pegawai.create',
         'store' => 'admin.pegawai.store',
-        // 'show' => 'admin.pegawai.show',
-        // 'edit' => 'admin.pegawai.edit',
+        'show' => 'admin.pegawai.show',
+        'edit' => 'admin.pegawai.edit',
         'update' => 'admin.pegawai.update',
         'destroy' => 'admin.pegawai.destroy',
     ]);
     // Routes untuk mengelola Instruktur
     Route::resource('instruktur', InstrukturController::class)->names([
         'index' => 'admin.instruktur.index',
-        // 'create' => 'admin.instruktur.create',
+        'create' => 'admin.instruktur.create',
         'store' => 'admin.instruktur.store',
-        // 'show' => 'admin.instruktur.show',
-        // 'edit' => 'admin.instruktur.edit',
+        'show' => 'admin.instruktur.show',
+        'edit' => 'admin.instruktur.edit',
         'update' => 'admin.instruktur.update',
         'destroy' => 'admin.instruktur.destroy',
     ]);

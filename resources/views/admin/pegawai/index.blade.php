@@ -46,7 +46,7 @@
                                         <!-- Tombol Lihat Detail -->
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                             data-target="#detailPegawaiModal-{{ $p->id }}">
-                                            Lihat Detail
+                                            Detail
                                         </button>
                                         <!-- Tombol Edit -->
                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
@@ -78,8 +78,10 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ asset($p->foto) }}" alt="Foto Pegawai" class="img-fluid">
-                                                <p><strong>Nama:</strong> {{ $p->nama }}</p>
+                                                <center><img src="{{ asset($p->foto) }}" alt="Foto Pegawai"
+                                                        class="img-fluid img-thumbnail" style="max-width: 150px; height: auto;">
+                                                    <p><strong>{{ $p->nama }}</strong> </p>
+                                                </center>
                                                 <p><strong>Jabatan:</strong> {{ $p->jabatan }}</p>
                                                 <p><strong>Tanggal Lahir:</strong> {{ $p->tanggal_lahir }}</p>
                                                 <p><strong>Alamat:</strong> {{ $p->alamat }}</p>
@@ -145,18 +147,25 @@
                                                             <option value="Laki-laki"
                                                                 {{ $p->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
                                                                 Laki-laki</option>
-                                                            <option value="Perempuan"{{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                                            <option
+                                                                value="Perempuan"{{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                 Perempuan</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="jabatan">Jabatan</label>
-                                                        <select name="jabatan" class="form-control"
-                                                            id="jabatan" required>
-                                                            <option value="admin" {{ $p->jabatan == 'admin' ? 'selected' : '' }}>Administrator</option>
-                                                            <option value="manager" {{ $p->jabatan == 'manager' ? 'selected' : '' }}>Manager</option>
-                                                            <option value="resepsionis" {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>Resepsionis</option>
-                                                            
+                                                        <select name="jabatan" class="form-control" id="jabatan"
+                                                            required>
+                                                            <option value="admin"
+                                                                {{ $p->jabatan == 'admin' ? 'selected' : '' }}>
+                                                                Administrator</option>
+                                                            <option value="manager"
+                                                                {{ $p->jabatan == 'manager' ? 'selected' : '' }}>Manager
+                                                            </option>
+                                                            <option value="resepsionis"
+                                                                {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>
+                                                                Resepsionis</option>
+
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
