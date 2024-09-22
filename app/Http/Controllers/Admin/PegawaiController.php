@@ -35,7 +35,7 @@ class PegawaiController extends Controller
             'kontak_hp' => 'required',
             'pendidikan_terakhir' => 'required',
             'foto' => 'nullable|image',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'jabatan' => 'required',
         ]);
 
@@ -124,7 +124,7 @@ class PegawaiController extends Controller
             'kontak_hp' => 'required',
             'pendidikan_terakhir' => 'required',
             'foto' => 'nullable|image',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'jabatan' => 'required',
         ]);
 

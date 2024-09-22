@@ -19,9 +19,9 @@
                         <thead>
                             <tr>
                                 <th>Nama Kelas</th>
-                                <th>Deskripsi</th>                                
-                                <th>Biaya Private</th>
-                                <th>Biaya Reguler</th>
+                                <th>Deskripsi</th>
+                                <th>Jenis Kelas</th>
+                                <th>Biaya</th>
                                 {{-- <th>Instruktur</th> --}}
                                 <th>Aksi</th>
                             </tr>
@@ -30,14 +30,16 @@
                             @foreach ($kelas as $k)
                                 <tr>
                                     <td>{{ $k->nama_kelas }}</td>
-                                    <td>{{ $k->deskripsi }}</td>                                    
-                                    <td>{{ $k->biaya_private }}</td>
-                                    <td>{{ $k->biaya_reguler }}</td>
+                                    <td>{{ $k->deskripsi }}</td>
+                                    <td>{{ $k->jenis_kelas }}</td>
+                                    <td>{{ $k->biaya }}</td>
                                     {{-- <td>{{ $k->instruktur->nama ?? 'Tidak ada' }}</td> --}}
                                     <td>
-                                        <button type="button" class="btn btn-info btn-sm" href="{{ url('admin/jadwal') }}">
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                            data-target="#jadwalModal{{ $k->id }}">
                                             Lihat Jadwal
                                         </button>
+
                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                             data-target="#editKelasModal-{{ $k->id }}">
                                             Edit
@@ -54,6 +56,46 @@
                                     </td>
 
                                 </tr>
+                                <!-- Modal untuk menampilkan jadwal -->
+                                <div class="modal fade" id="jadwalModal{{ $k->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="jadwalModalLabel{{ $k->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="jadwalModalLabel{{ $k->id }}">Jadwal
+                                                    untuk Kelas {{ $k->nama_kelas }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Daftar jadwal yang berkaitan dengan kelas -->
+                                                @if ($k->jadwals->isEmpty())
+                                                    <p>Tidak ada jadwal untuk kelas ini.</p>
+                                                @else
+                                                    <ul>
+                                                        @foreach ($k->jadwals as $jadwal)
+                                                            <li>
+                                                                <strong>Jadwal</strong> {{ $jadwal->nama_jadwal }} <br>
+                                                                <strong>Hari:</strong> {{ $jadwal->hari }} <br>
+                                                                <strong>Jam:</strong> {{ $jadwal->jam_mulai }} -
+                                                                {{ $jadwal->jam_selesai }} <br>
+                                                                <strong>Instruktur:</strong>
+                                                                {{ $jadwal->instruktur->nama }} <br>
+                                                                <strong> Jumlah siswa </strong>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal fade" id="editKelasModal-{{ $k->id }}" tabindex="-1"
                                     aria-labelledby="editKelasModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -79,16 +121,24 @@
                                                     <div class="form-group">
                                                         <label for="deskripsi">Deskripsi</label>
                                                         <textarea name="deskripsi" class="form-control" id="deskripsi" required>{{ $k->deskripsi }}</textarea>
-                                                    </div>                                                    
-                                                    <div class="form-group">
-                                                        <label for="biaya_private">Biaya Private</label>
-                                                        <input type="number" name="biaya_private" class="form-control"
-                                                            id="biaya_private" value="{{ $k->biaya_private }}" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="biaya_reguler">Biaya Reguler</label>
-                                                        <input type="number" name="biaya_reguler" class="form-control"
-                                                            id="biaya_reguler" value="{{ $k->biaya_reguler }}" required>
+                                                        <label for="jenis_kelas">Jenis Kelas</label>
+                                                        <select name="jenis_kelas" id="jenis_kelas" class="form-control"
+                                                            required>
+                                                            <option value="reguler"
+                                                                {{ old('jenis_kelas', $k->jenis_kelas) == 'reguler' ? 'selected' : '' }}>
+                                                                Reguler</option>
+                                                            <option value="private"
+                                                                {{ old('jenis_kelas', $k->jenis_kelas) == 'private' ? 'selected' : '' }}>
+                                                                Private</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="biaya">Biaya Kelas</label>
+                                                        <input type="number" name="biaya" class="form-control"
+                                                            id="biaya" min="800000" step="50000"
+                                                            value="{{ old('biaya', $k->biaya) }}" required>
                                                     </div>
                                                     {{-- <div class="form-group">
                                                         <label for="instruktur_id">Instruktur</label>
@@ -107,7 +157,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             @endforeach
                         </tbody>
                     </table>
@@ -137,13 +186,17 @@
                             <label for="deskripsi">Deskripsi</label>
                             <textarea name="deskripsi" class="form-control" id="deskripsi" required></textarea>
                         </div>
+                        <select name="jenis_kelas" id="jenis_kelas" class="form-control" required>
+                            <option value="">Pilih Jenis Kelas</option>
+                            <option value="reguler" {{ old('jenis_kelas') == 'reguler' ? 'selected' : '' }}>Reguler
+                            </option>
+                            <option value="private" {{ old('jenis_kelas') == 'private' ? 'selected' : '' }}>Private
+                            </option>
+                        </select>
                         <div class="form-group">
-                            <label for="biaya_private">Biaya Private</label>
-                            <input type="number" name="biaya_private" class="form-control" id="biaya_private" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="biaya_reguler">Biaya Reguler</label>
-                            <input type="number" name="biaya_reguler" class="form-control" id="biaya_reguler" required>
+                            <label for="biaya">Biaya Kelas</label>
+                            <input type="number" name="biaya" class="form-control" id="biaya" min="800000"
+                                step="50000" value="{{ old('biaya', 800000) }}" required>
                         </div>
                         {{-- <div class="form-group">
                             <label for="instruktur_id">Instruktur</label>

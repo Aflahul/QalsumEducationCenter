@@ -21,6 +21,7 @@ class Pegawai extends Model
         'kontak_hp',
         'pendidikan_terakhir',
         'jabatan',
+        'jenis_kelamin',
         'foto'
     ];
 
@@ -34,6 +35,6 @@ class Pegawai extends Model
     // Relasi ke tabel `Jadwal` (untuk instruktur)
     public function jadwals()
     {
-        return $this->hasMany(Jadwal::class, 'instruktur', 'nama');
+        return $this->hasMany(Jadwal::class, 'id_pegawai', 'id');
     }
 }

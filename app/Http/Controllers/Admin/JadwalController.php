@@ -23,11 +23,10 @@ class JadwalController extends Controller
     // Menyimpan data jadwal baru
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_jadwal' => 'required',
-            'nama_kelas' => 'required',
-            'instruktur' => 'required',
-            'jalur' => 'required',
+            'id_kelas' => 'required|exists:kelas,id',  // Validasi id_kelas dari kelas
+            'id_pegawai' => 'required|exists:pegawai,id',
             'hari' => 'required',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
@@ -35,13 +34,12 @@ class JadwalController extends Controller
 
         // Menyimpan data jadwal baru
         Jadwal::create([
-            'nama_jadwal' => $request->nama_jadwal,
-            'nama_kelas' => $request->nama_kelas,
-            'instruktur' => $request->instruktur,
-            'jalur' => $request->jalur,
-            'hari' => $request->hari,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai,
+            'nama_jadwal' => $validated['nama_jadwal'],  // Gunakan $validated
+            'id_kelas' => $validated['id_kelas'], 
+            'id_pegawai' => $validated['id_pegawai'],
+            'hari' => $validated['hari'],
+            'jam_mulai' => $validated['jam_mulai'],
+            'jam_selesai' => $validated['jam_selesai'],
         ]);
 
         return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil ditambahkan!');
@@ -60,30 +58,31 @@ class JadwalController extends Controller
     // Memperbarui data jadwal
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_jadwal' => 'required',
-            'nama_kelas' => 'required',
-            'instruktur' => 'required',
-            'jalur' => 'required',
+            'id_kelas' => 'required|exists:kelas,id',  // Validasi id_kelas dari kelas
+            'id_pegawai' => 'required|exists:pegawai,id',
             'hari' => 'required',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
         ]);
 
-        // Memperbarui data jadwal
+        // Temukan jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id);
+
+        // Update data jadwal
         $jadwal->update([
-            'nama_jadwal' => $request->nama_jadwal,
-            'nama_kelas' => $request->nama_kelas,
-            'instruktur' => $request->instruktur,
-            'jalur' => $request->jalur,
-            'hari' => $request->hari,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai,
+            'nama_jadwal' => $validated['nama_jadwal'],  // Gunakan $validated
+            'id_kelas' => $validated['id_kelas'], 
+            'id_pegawai' => $validated['id_pegawai'],
+            'hari' => $validated['hari'],
+            'jam_mulai' => $validated['jam_mulai'],
+            'jam_selesai' => $validated['jam_selesai'],
         ]);
 
         return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil diperbarui!');
     }
+
 
     // Menghapus data jadwal
     public function destroy($id)

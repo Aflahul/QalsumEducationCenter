@@ -42,7 +42,7 @@
                                     <td>{{ $p->nama }}</td>
                                     <td class="text-capitalize">
                                         @foreach ($p->jadwals as $jadwal)
-                                            {{ $jadwal->nama_kelas }} - {{ $jadwal->jalur }}<br>
+                                            {{ $jadwal->kelas->nama_kelas }} ({{ $jadwal->kelas->jenis_kelas }}) <br>
                                         @endforeach
                                     </td>
                                     <td>{{ $p->kontak_hp }}</td>
@@ -82,12 +82,19 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ asset($p->foto) }}" alt="Foto Pegawai" class="img-fluid">
-                                                <p><strong>Nama:</strong> {{ $p->nama }}</p>
+                                                <center><img src="{{ asset($p->foto) }}" alt="Foto Pegawai"
+                                                        class="img-fluid img-thumbnail"
+                                                        style="max-width: 150px; height: auto;"></center>
+                                                <p>
+                                                    <center><strong> {{ $p->nama }}</strong></center>
+                                                </p>
                                                 <p><strong>Kelas yang Diampu:</strong></p>
                                                 <ul>
                                                     @foreach ($p->jadwals as $jadwal)
-                                                        <li class="text-capitalize">{{ $jadwal->nama_kelas }} - {{ $jadwal->jalur }}</li>
+                                                        <li class="text-capitalize">
+                                                            {{ $jadwal->kelas->nama_kelas }}
+                                                            - {{ $jadwal->kelas->jenis_kelas }} <br>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                                 <p><strong>Tanggal Lahir:</strong> {{ $p->tanggal_lahir }}</p>
@@ -145,6 +152,7 @@
                                                                     <option value="Perempuan"
                                                                         {{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                         Perempuan</option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -158,7 +166,7 @@
                                                                     class="form-control" id="pendidikan_terakhir"
                                                                     value="{{ $p->pendidikan_terakhir }}" required>
                                                             </div>
-                                                            
+
                                                             <div class="form-group mb-3">
                                                                 <label for="alamat">Alamat</label>
                                                                 <textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ $p->alamat }}</textarea>
@@ -242,7 +250,7 @@
                                     <input type="text" name="pendidikan_terakhir" class="form-control"
                                         id="pendidikan_terakhir" placeholder="Masukkan pendidikan terakhir" required>
                                 </div>
-                                
+
                                 <div class="form-group mb-3">
                                     <label for="alamat">Alamat</label>
                                     <textarea name="alamat" class="form-control" id="alamat" placeholder="Masukkan alamat lengkap" rows="3"

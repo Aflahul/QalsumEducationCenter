@@ -15,13 +15,13 @@ class Kelas extends Model
     protected $fillable = [
         'nama_kelas',
         'deskripsi',
-        'biaya_reguler',
-        'biaya_private'
+        'jenis_kelas',
+        'biaya'
     ];
 
     // Relasi ke tabel `Jadwal`
     public function jadwals()
     {
-        return $this->hasMany(Jadwal::class, 'nama_kelas', 'nama_kelas');
+        return $this->hasMany(Jadwal::class, 'id_kelas');
     }
 }

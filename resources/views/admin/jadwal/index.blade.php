@@ -36,9 +36,9 @@
                             @foreach ($jadwal as $j)
                                 <tr>
                                     <td>{{ $j->nama_jadwal }}</td>
-                                    <td>{{ $j->nama_kelas }}</td>
-                                    <td>{{ $j->jalur }}</td>
-                                    <td>{{ $j->instruktur }}</td>
+                                    <td>{{ $j->kelas->nama_kelas }}</td>
+                                    <td>{{ $j->kelas->jenis_kelas }}</td>
+                                    <td>{{ $j->instruktur->nama }}</td>
                                     <td>{{ $j->hari }}</td>
                                     <td>{{ $j->jam_mulai }}</td>
                                     <td>{{ $j->jam_selesai }}</td>
@@ -74,13 +74,17 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p><strong>Nama Jadwal:</strong> {{ $j->nama_jadwal }}</p>
-                                                <p><strong>Kelas:</strong> {{ $j->nama_kelas }}</p>
-                                                <p><strong>Instruktur:</strong> {{ $j->instruktur }}</p>
-                                                <p><strong>Jalur:</strong> {{ $j->jalur }}</p>
+                                                <p><strong>Kelas:</strong> {{ $j->kelas->nama_kelas }}</p>
+                                                <!-- Nama kelas -->
+                                                <p><strong>Instruktur:</strong> {{ $j->instruktur->nama }}</p>
+                                                <!-- Nama instruktur -->
+                                                <p><strong>Jalur:</strong> {{ $j->kelas->jenis_kelas }}</p>
+                                                <!-- Jenis kelas -->
                                                 <p><strong>Hari:</strong> {{ $j->hari }}</p>
                                                 <p><strong>Jam Mulai:</strong> {{ $j->jam_mulai }}</p>
                                                 <p><strong>Jam Selesai:</strong> {{ $j->jam_selesai }}</p>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -100,58 +104,65 @@
                                                 <form action="{{ route('admin.jadwal.update', $j->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <div class="form-group">
-                                                        <label for="nama_jadwal">Nama Jadwal</label>
-                                                        <input type="text" name="nama_jadwal" class="form-control"
-                                                            value="{{ $j->nama_jadwal }}" required>
+                                                    {{-- <div class="modal-header">
+                                                        <h5 class="modal-title" id="updateModalLabel">Update Jadwal</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div> --}}
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="nama_jadwal" class="form-label">Nama Jadwal</label>
+                                                            <input type="text" class="form-control" name="nama_jadwal"
+                                                                value="{{ $j->nama_jadwal }}" required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="id_kelas" class="form-label">Kelas</label>
+                                                            <select name="id_kelas" class="form-control" required>
+                                                                @foreach ($kelas as $k)
+                                                                    <option value="{{ $k->id }}"
+                                                                        {{ $k->id == $j->id_kelas ? 'selected' : '' }}>
+                                                                        {{ $k->nama_kelas }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="id_pegawai" class="form-label">Instruktur</label>
+                                                            <select name="id_pegawai" class="form-control" required>
+                                                                @foreach ($instruktur as $p)
+                                                                    <option value="{{ $p->id }}"
+                                                                        {{ $p->id == $j->id_pegawai ? 'selected' : '' }}>
+                                                                        {{ $p->nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="hari" class="form-label">Hari</label>
+                                                            <input type="text" class="form-control" name="hari"
+                                                                value="{{ $j->hari }}" required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="jam_mulai" class="form-label">Jam Mulai</label>
+                                                            <input type="time" class="form-control" name="jam_mulai"
+                                                                value="{{ $j->jam_mulai }}" required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="jam_selesai" class="form-label">Jam
+                                                                Selesai</label>
+                                                            <input type="time" class="form-control" name="jam_selesai"
+                                                                value="{{ $j->jam_selesai }}" required>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="nama_kelas">Kelas</label>
-                                                        <select name="nama_kelas" class="form-control" required>
-                                                            @foreach ($kelas as $k)
-                                                                <option value="{{ $k->nama_kelas }}"
-                                                                    {{ $k->nama_kelas == $j->nama_kelas ? 'selected' : '' }}>
-                                                                    {{ $k->nama_kelas }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Update
+                                                            Jadwal</button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="instruktur">Instruktur</label>
-                                                        <select name="instruktur" class="form-control" required>
-                                                            @foreach ($instruktur as $i)
-                                                                <option value="{{ $i->nama }}"
-                                                                    {{ $i->nama == $j->instruktur ? 'selected' : '' }}>
-                                                                    {{ $i->nama }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jalur">Jalur</label>
-                                                        <select name="jalur" class="form-control" required>
-                                                            <option value="Reguler"
-                                                                {{ $j->jalur == 'Reguler' ? 'selected' : '' }}>Reguler
-                                                            </option>
-                                                            <option value="Privat"
-                                                                {{ $j->jalur == 'Privat' ? 'selected' : '' }}>Privat
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="hari">Hari</label>
-                                                        <input type="text" name="hari" class="form-control"
-                                                            value="{{ $j->hari }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jam_mulai">Jam Mulai</label>
-                                                        <input type="time" name="jam_mulai" class="form-control"
-                                                            value="{{ $j->jam_mulai }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jam_selesai">Jam Selesai</label>
-                                                        <input type="time" name="jam_selesai" class="form-control"
-                                                            value="{{ $j->jam_selesai }}" required>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-warning">Update Jadwal</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -183,27 +194,34 @@
                             <input type="text" name="nama_jadwal" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="nama_kelas">Kelas</label>
-                            <select name="nama_kelas" class="form-control" required>
+                            <label for="kelas">Pilih Kelas</label>
+                            <select name="id_kelas" id="kelas" class="form-control" required>
                                 @foreach ($kelas as $k)
-                                    <option value="{{ $k->nama_kelas }}">{{ $k->nama_kelas }}</option>
+                                    <option value="{{ $k->id }}"
+                                        {{ old('id_kelas') == $k->id ? 'selected' : '' }}>
+                                        {{ $k->nama_kelas }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="instruktur">Instruktur</label>
+
+                            <label for="id_pegawai">Pilih Instruktur</label>
+                            <select name="id_pegawai" class="form-control" required>
+                                <option value="">-- Pilih Instruktur --</option>
+                                @foreach ($instruktur as $i)
+                                    <option value="{{ $i->id }}"
+                                        {{ old('id_pegawai') == $i->id ? 'selected' : '' }}>
+                                        {{ $i->nama }} <!-- Tampilkan nama instruktur -->
+                                    </option>
+                                @endforeach
+                            </select>
+                            {{-- <label for="instruktur">Instruktur</label>
                             <select name="instruktur" class="form-control" required>
                                 @foreach ($instruktur as $i)
                                     <option value="{{ $i->nama }}">{{ $i->nama }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="jalur">Jalur</label>
-                            <select name="jalur" class="form-control" required>
-                                <option value="Reguler">Reguler</option>
-                                <option value="Privat">Privat</option>
-                            </select>
+                            </select> --}}
                         </div>
                         <div class="form-group">
                             <label for="hari">Hari</label>

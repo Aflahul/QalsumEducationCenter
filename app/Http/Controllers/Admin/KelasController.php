@@ -33,17 +33,26 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         // Validasi input
-        $request->validate([
-            'nama_kelas' => 'required|string|max:255|unique:kelas,nama_kelas',
-            'deskripsi' => 'nullable|string',
-            'biaya_reguler' => 'required|numeric',
-            'biaya_private' => 'required|numeric',
+        $validated = $request->validate([
+            'nama_kelas' => 'required|string|unique:kelas,nama_kelas',
+            'deskripsi' => 'required|string',
+            'jenis_kelas' => 'required|in:reguler,private',
+            'biaya' => [
+                'required',
+                'numeric',
+                // 'min:80000',
+                // function($attribute, $value, $fail) {
+                //     if ($value % 50000 != 0) {
+                //         $fail('Biaya harus dalam kelipatan Rp 50.000.');
+                //     }
+                // },
+            ],
         ]);
 
-        // Menyimpan data kelas baru
-        Kelas::create($request->all());
+        // Simpan data ke database
+        Kelas::create($validated);
 
-        return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil ditambahkan.');
+        return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil ditambahkan');
     }
 
     /**
@@ -61,21 +70,34 @@ class KelasController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'nama_kelas' => 'required|string|max:255|unique:kelas,nama_kelas,' . $id,
-            'deskripsi' => 'nullable|string',
-            'biaya_reguler' => 'required|numeric',
-            'biaya_private' => 'required|numeric',
-        ]);
+{
+    // Validasi input
+    $validated = $request->validate([
+        'nama_kelas' => 'required|string|unique:kelas,nama_kelas,' . $id, // Pastikan nama_kelas unik kecuali untuk record yang sedang di-edit
+        'deskripsi' => 'required|string',
+        'jenis_kelas' => 'required|in:reguler,private',
+        'biaya' => [
+            'required',
+            'numeric',
+            // 'min:80000',
+            // function ($attribute, $value, $fail) {
+            //     if ($value % 50000 != 0) {
+            //         $fail('Biaya harus dalam kelipatan Rp 50.000.');
+            //     }
+            // },
+        ],
+    ]);
 
-        // Mengupdate data kelas yang sudah ada
-        $kelas = Kelas::findOrFail($id);
-        $kelas->update($request->all());
+    // Temukan data kelas berdasarkan ID
+    $kelas = Kelas::findOrFail($id);
 
-        return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil diperbarui.');
-    }
+    // Update data kelas
+    $kelas->update($validated);
+
+    // Redirect kembali ke halaman kelas dengan pesan sukses
+    return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil diperbarui');
+}
+
 
     /**
      * Remove the specified resource from storage.
