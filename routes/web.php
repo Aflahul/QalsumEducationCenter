@@ -61,20 +61,20 @@ Route::prefix('admin')->group(function () {
     // Routes untuk mengelola staf
     Route::resource('staff', PegawaiController::class)->names([
         'index' => 'admin.pegawai.index',
-        // 'create' => 'admin.pegawai.create',
+        'create' => 'admin.pegawai.create',
         'store' => 'admin.pegawai.store',
-        // 'show' => 'admin.pegawai.show',
-        // 'edit' => 'admin.pegawai.edit',
+        'show' => 'admin.pegawai.show',
+        'edit' => 'admin.pegawai.edit',
         'update' => 'admin.pegawai.update',
         'destroy' => 'admin.pegawai.destroy',
     ]);
     // Routes untuk mengelola Instruktur
     Route::resource('instruktur', InstrukturController::class)->names([
         'index' => 'admin.instruktur.index',
-        // 'create' => 'admin.instruktur.create',
+        'create' => 'admin.instruktur.create',
         'store' => 'admin.instruktur.store',
-        // 'show' => 'admin.instruktur.show',
-        // 'edit' => 'admin.instruktur.edit',
+        'show' => 'admin.instruktur.show',
+        'edit' => 'admin.instruktur.edit',
         'update' => 'admin.instruktur.update',
         'destroy' => 'admin.instruktur.destroy',
     ]);
@@ -84,7 +84,17 @@ Route::prefix('admin')->group(function () {
     Route::resource('siswa', SiswaController::class)->names([
         'index' => 'admin.siswa.index',
         'show' => 'admin.siswa.show',
+        'store' => 'admin.siswa.store',
+        'update' => 'admin.siswa.update',
+        'destroy' => 'admin.siswa.destroy',
     ]);
+    // Route untuk memilih kelas
+    Route::post('/siswa/{id}/pilihKelas', [SiswaController::class, 'pilihKelas'])->name('admin.siswa.pilihKelas');
+    // Route untuk memilih jadwal
+    Route::post('/siswa/{id}/pilihJadwal', [SiswaController::class, 'pilihJadwal'])->name('admin.siswa.pilihJadwal');
+    // Route untuk menyimpan kelas/jadwal yang dipilih siswa
+    Route::post('/admin/siswa/{siswa}/kelas', [SiswaController::class, 'updateKelas'])->name('admin.siswa.updateKelas');
+    
 
     // Routes untuk mengelola kelas
     Route::resource('kelas', KelasController::class)->names([
@@ -116,25 +126,15 @@ Route::prefix('admin')->group(function () {
         'index' => 'admin.sertifikat.index',
         'show' => 'admin.sertifikat.show',
     ]);
-});
-
-// Rute untuk instruktur
-Route::prefix('instruktur')->group(function () {
-    Route::get('/dashboard', [InstrukturDashboardController::class, 'index'])->name('instruktur.dashboard');
 
     // Routes untuk mengelola nilai
     Route::resource('nilai', NilaiController::class)->names([
-        'index' => 'instruktur.nilai.index',
-        'edit' => 'instruktur.nilai.edit',
-        'update' => 'instruktur.nilai.update',
+        'index' => 'admin.nilai.index',
+        'edit' => 'admin.nilai.edit',
+        'update' => 'admin.nilai.update',
     ]);
 
-    // Routes untuk melihat dan mengedit jadwal
-    Route::resource('jadwal', InstrukturJadwalController::class)->names([
-        'index' => 'instruktur.jadwal.index',
-        'edit' => 'instruktur.jadwal.edit',
-        'update' => 'instruktur.jadwal.update',
-    ]);
+    
 });
 
 

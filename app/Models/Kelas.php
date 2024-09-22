@@ -20,8 +20,8 @@ class Kelas extends Model
     ];
 
     // Relasi ke tabel `Jadwal`
-    public function jadwals()
-    {
-        return $this->hasMany(Jadwal::class, 'nama_kelas', 'nama_kelas');
-    }
+    public function jadwal() {
+    return $this->hasMany(Jadwal::class);
+}
+
 }

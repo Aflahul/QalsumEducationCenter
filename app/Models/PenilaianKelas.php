@@ -5,22 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pembayaran extends Model
+class PenilaianKelas extends Model
 {
     use HasFactory;
 
-    protected $table = 'pembayaran';
+    protected $table = 'penilaian_kelas';
 
     protected $fillable = [
         'pendaftaran_kelas_id',
-        'jumlah_bayar',
-        'bukti_pembayaran',
-        'status',
+        'nilai_akhir',
+        'grade',
     ];
 
     // Relasi ke tabel PendaftaranKelas
-    public function pendaftaranKelas() {
-    return $this->belongsTo(PendaftaranKelas::class);
-}
-
+    public function pendaftaranKelas()
+    {
+        return $this->belongsTo(PendaftaranKelas::class);
+    }
 }

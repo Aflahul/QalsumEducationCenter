@@ -12,29 +12,26 @@ class Siswa extends Model
     protected $table = 'siswa';
 
     protected $fillable = [
-        // 'username',
         'nama',
+        'username',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
-        'foto',
+        'pendidikan_terakhir',
         'jenis_kelamin',
     ];
 
-    // public function pengguna()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'username', 'username');
-    // }
-
-    public function nilais()
+    // Relasi ke tabel PendaftaranKelas
+    public function pendaftaranKelas()
     {
-        return $this->hasMany(Nilai::class, 'siswa_id');
+        return $this->hasMany(PendaftaranKelas::class);
     }
 
-    public function nilaiAkhir($kelas_id)
+    // Relasi ke tabel Nilai
+    public function nilai()
     {
-        return Nilai::where('siswa_id', $this->id)
-            ->where('kelas_id', $kelas_id)
-            ->avg('nilai');
+        return $this->hasMany(Nilai::class);
     }
+    
 }
+

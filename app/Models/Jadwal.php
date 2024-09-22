@@ -33,4 +33,8 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Pegawai::class, 'instruktur', 'nama');
     }
+    public function pendaftaranKelas() {
+    return $this->hasMany(PendaftaranKelas::class);
+}
+
 }

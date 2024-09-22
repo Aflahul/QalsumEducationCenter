@@ -12,24 +12,20 @@ class Nilai extends Model
     protected $table = 'nilai';
 
     protected $fillable = [
+        'materi_id',
         'siswa_id',
-        'kelas_id',
-        'sub_aspek_id',
         'nilai',
     ];
 
+    // Relasi ke tabel Materi
+    public function materi()
+    {
+        return $this->belongsTo(Materi::class);
+    }
+
+    // Relasi ke tabel Siswa
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
-    }
-
-    public function subAspek()
-    {
-        return $this->belongsTo(SubAspek::class, 'sub_aspek_id');
+        return $this->belongsTo(Siswa::class);
     }
 }
