@@ -90,6 +90,7 @@ Route::prefix('admin')->group(function () {
         'update' => 'admin.siswa.update',
         'destroy' => 'admin.siswa.destroy',
     ]);
+    
 
     // Routes untuk mengelola kelas
     Route::resource('kelas', KelasController::class)->names([
@@ -112,14 +113,22 @@ Route::prefix('admin')->group(function () {
 
     // Routes untuk mengelola pembayaran
     Route::resource('pembayaran', PembayaranController::class)->names([
-        'index' => 'admin.pembayaran.index',
-        'show' => 'admin.pembayaran.show',
+    'index' => 'admin.pembayaran.index',
+        'store' => 'admin.pembayaran.store',
+        'update' => 'admin.pembayaran.update',
+        'destroy' => 'admin.pembayaran.destroy',
     ]);
+
+    Route::get('/siswa/{id}/biaya', [PembayaranController::class, 'getBiaya'])->name('admin.pembayaran.getBiaya');
+    Route::post('/pembayaran/input-siswa', [PembayaranController::class, 'inputSiswa'])->name('admin.pembayaran.inputSiswa');
+
+
 
     // Routes untuk mengelola sertifikat
     Route::resource('sertifikat', SertifikatController::class)->names([
         'index' => 'admin.sertifikat.index',
         'show' => 'admin.sertifikat.show',
+        
     ]);
 });
 

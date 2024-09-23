@@ -54,4 +54,8 @@ class Siswa extends Model
     {
         return $this->hasOneThrough(Kelas::class, Jadwal::class, 'id', 'id', 'id_jadwal', 'id'); // menghubungkan siswa, jadwal, dan kelas
     }
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class, 'id_siswa');
+    }
 }

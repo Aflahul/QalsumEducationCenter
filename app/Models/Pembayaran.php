@@ -12,19 +12,28 @@ class Pembayaran extends Model
     protected $table = 'pembayaran';
 
     protected $fillable = [
-        'siswa_id',
-        'kelas_id',
-        'jumlah',
-        'tanggal',
+        'id_siswa', 
+        'biaya_total',
+        'angsuran1',
+        'angsuran2',
+        'sisa_pembayaran',
+        'status'
     ];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
+    // Relasi ke Jadwal melalui Siswa
+    public function jadwal()
+    {
+        return $this->hasOneThrough(Jadwal::class, Siswa::class, 'id', 'id', 'id_siswa', 'id_jadwal');
+    }
+
+    // Relasi ke Kelas melalui Jadwal
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->hasOneThrough(Kelas::class, Jadwal::class, 'id', 'id', 'id_siswa', 'id_kelas');
     }
 }
