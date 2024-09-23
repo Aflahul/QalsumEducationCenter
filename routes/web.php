@@ -83,7 +83,12 @@ Route::prefix('admin')->group(function () {
     // Routes untuk mengelola siswa
     Route::resource('siswa', SiswaController::class)->names([
         'index' => 'admin.siswa.index',
-        'show' => 'admin.siswa.show',
+        // 'create' => 'admin.siswa.create',
+        'store' => 'admin.siswa.store',
+        // 'show' => 'admin.siswa.show',
+        // 'edit' => 'admin.siswa.edit',
+        'update' => 'admin.siswa.update',
+        'destroy' => 'admin.siswa.destroy',
     ]);
 
     // Routes untuk mengelola kelas

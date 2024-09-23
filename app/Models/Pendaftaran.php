@@ -9,28 +9,26 @@ class Pendaftaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'pendaftaran';
+    protected $table = 'pendaftaran_kelas';
 
     protected $fillable = [
         'siswa_id',
-        'kelas_id',
-        'tanggal_pendaftaran',
-        'status_pendaftaran',
+        'id_jadwal',
+        'kode_pendaftaran',
     ];
 
-    /**
-     * Relasi ke model Siswa.
-     */
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class);
-    }
 
-    /**
-     * Relasi ke model Kelas.
-     */
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
+    }
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'id_siswa');
+    }
+
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class, 'id_jadwal');
     }
 }

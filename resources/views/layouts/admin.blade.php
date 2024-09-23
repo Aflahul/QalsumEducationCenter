@@ -20,6 +20,15 @@
         @include('Partials.sidebar')
         <div id="layoutSidenav_content">
             <div class="container-fluid">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @yield('content')
             </div>
             <footer class="py-4 bg-light mt-auto">

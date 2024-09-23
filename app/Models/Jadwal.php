@@ -24,12 +24,16 @@ class Jadwal extends Model
     // Relasi ke tabel `Kelas`
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
+        return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 
     // Relasi ke tabel `Pegawai` (instruktur)
     public function instruktur()
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai');
+    }
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_jadwal');
     }
 }

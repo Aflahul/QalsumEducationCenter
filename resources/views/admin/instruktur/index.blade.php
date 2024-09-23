@@ -22,6 +22,7 @@
                     <table id="datatablesSimple" class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Nomor Pegawai</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
                                 <th>Kontak</th>
@@ -30,6 +31,7 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>Nomor Pegawai</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
                                 <th>Kontak</th>
@@ -39,6 +41,7 @@
                         <tbody>
                             @foreach ($pegawai as $p)
                                 <tr>
+                                    <td>{{ $p->pegawai_id }}</td>
                                     <td>{{ $p->nama }}</td>
                                     <td class="text-capitalize">
                                         @if ($p->jadwals->isEmpty())

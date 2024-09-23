@@ -12,13 +12,16 @@ class Siswa extends Model
     protected $table = 'siswa';
 
     protected $fillable = [
-        // 'username',
+        
         'nama',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
         'foto',
+        'id_jadwal',
+        'nomor_siswa',
         'jenis_kelamin',
+        'pendidikan_terakhir'
     ];
 
     // public function pengguna()
@@ -36,5 +39,19 @@ class Siswa extends Model
         return Nilai::where('siswa_id', $this->id)
             ->where('kelas_id', $kelas_id)
             ->avg('nilai');
+    }
+    public function pendaftaran()
+    {
+        return $this->hasOne(Pendaftaran::class);
+    }
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class, 'id_jadwal'); // mengacu pada kolom 'jadwal' di tabel siswa
+    }
+
+    // Relasi ke Kelas melalui Jadwal
+    public function kelas()
+    {
+        return $this->hasOneThrough(Kelas::class, Jadwal::class, 'id', 'id', 'id_jadwal', 'id'); // menghubungkan siswa, jadwal, dan kelas
     }
 }
