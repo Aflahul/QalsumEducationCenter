@@ -111,10 +111,14 @@ Route::prefix('admin')->group(function () {
     ]);
     Route::resource('nilai', NilaiController::class)->names([
         'index' => 'admin.nilai.index',
+        'create' => 'admin.nilai.create',
         'store' => 'admin.nilai.store',
+        'show' => 'admin.nilai.show',
+        'edit' => 'admin.nilai.edit',
         'update' => 'admin.nilai.update',
         'destroy' => 'admin.nilai.destroy',
     ]);
+
 
     // Routes untuk mengelola jadwal
     Route::resource('jadwal', AdminJadwalController::class)->names([
@@ -143,7 +147,12 @@ Route::prefix('admin')->group(function () {
     // Routes untuk mengelola sertifikat
     Route::resource('sertifikat', SertifikatController::class)->names([
         'index' => 'admin.sertifikat.index',
+        'create' => 'admin.sertifikat.create',
+        'store' => 'admin.sertifikat.store',
         'show' => 'admin.sertifikat.show',
+        'edit' => 'admin.sertifikat.edit',
+        'update' => 'admin.sertifikat.update',
+        'destroy' => 'admin.sertifikat.destroy',
         
     ]);
 });
