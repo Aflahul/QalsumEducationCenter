@@ -12,19 +12,19 @@ class Sertifikat extends Model
     protected $table = 'sertifikat';
 
     protected $fillable = [
-        'siswa_id',
-        'kelas_id',
+        'id_siswa',
+        'id_kelas',
         'nilai_akhir',
         'tanggal_terbit',
     ];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
+        return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 }

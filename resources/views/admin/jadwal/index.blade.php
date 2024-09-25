@@ -29,6 +29,7 @@
                                 <th>Hari</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Selesai</th>
+                                <th>Jumlah Siswa</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -42,11 +43,12 @@
                                     <td>{{ $j->hari }}</td>
                                     <td>{{ $j->jam_mulai }}</td>
                                     <td>{{ $j->jam_selesai }}</td>
+                                    <td>{{ $j->siswa->count() }} orang</td>
                                     <td>
-                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        {{-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                             data-target="#detailJadwalModal-{{ $j->id }}">
                                             Lihat Detail
-                                        </button>
+                                        </button> --}}
                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                             data-target="#editJadwalModal-{{ $j->id }}">
                                             Edit
@@ -62,7 +64,7 @@
                                 </tr>
 
                                 <!-- Modal Detail -->
-                                <div class="modal fade" id="detailJadwalModal-{{ $j->id }}" tabindex="-1">
+                                {{-- <div class="modal fade" id="detailJadwalModal-{{ $j->id }}" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -87,7 +89,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Modal Edit -->
                                 <div class="modal fade" id="editJadwalModal-{{ $j->id }}" tabindex="-1">

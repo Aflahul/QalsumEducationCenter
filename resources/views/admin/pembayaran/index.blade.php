@@ -42,7 +42,7 @@
                                     <td>Rp {{ number_format($p->angsuran2, 0, ',', '.') }}</td>
                                     <td>Rp {{ number_format($p->sisa_pembayaran, 0, ',', '.') }}</td>
                                     <td>
-                                        @if ($p->status == 'lunas')
+                                        @if ($p->status == 'Lunas')
                                             <span class="btn btn-success btn-sm">Lunas</span>
                                         @else
                                             <span class="btn btn-warning btn-sm">Belum Lunas</span>
@@ -51,7 +51,7 @@
                                     <td>
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                             data-target="#tambahRincianPembayaranModal-{{ $p->id }}">
-                                            Edit Rincian Pembayaran
+                                            Edit
                                         </button>
                                         
                                         <form action="{{ route('admin.pembayaran.destroy', $p->id) }}" method="POST"

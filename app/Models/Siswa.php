@@ -13,15 +13,15 @@ class Siswa extends Model
 
     protected $fillable = [
         
+        'nomor_siswa',
         'nama',
+        'id_jadwal',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
-        'foto',
-        'id_jadwal',
-        'nomor_siswa',
+        'pendidikan_terakhir',
         'jenis_kelamin',
-        'pendidikan_terakhir'
+        'foto',
     ];
 
     // public function pengguna()
@@ -29,17 +29,9 @@ class Siswa extends Model
     //     return $this->belongsTo(Pengguna::class, 'username', 'username');
     // }
 
-    public function nilais()
-    {
-        return $this->hasMany(Nilai::class, 'siswa_id');
-    }
-
-    public function nilaiAkhir($kelas_id)
-    {
-        return Nilai::where('siswa_id', $this->id)
-            ->where('kelas_id', $kelas_id)
-            ->avg('nilai');
-    }
+   
+   
+    
     public function pendaftaran()
     {
         return $this->hasOne(Pendaftaran::class);
@@ -58,4 +50,22 @@ class Siswa extends Model
     {
         return $this->hasMany(Pembayaran::class, 'id_siswa');
     }
+    
+
+    // Relasi dengan Penilaian Kelas
+    public function penilaianKelas()
+    {
+        return $this->hasMany(PenilaianKelas::class, 'id_siswa');
+    }
+
+    // Relasi dengan Nilai
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'id_siswa');
+    }
+    public function sertifikat()
+{
+    return $this->hasOne(Sertifikat::class, 'id_siswa');
+}
+
 }

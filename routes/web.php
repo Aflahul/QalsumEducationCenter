@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\KelasController;
+use App\Http\Controllers\Admin\NilaiController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\InstrukturController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\SertifikatController;
-use App\Http\Controllers\Instruktur\NilaiController;
 use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Instruktur\JadwalController as InstrukturJadwalController;
@@ -90,7 +91,16 @@ Route::prefix('admin')->group(function () {
         'update' => 'admin.siswa.update',
         'destroy' => 'admin.siswa.destroy',
     ]);
-    
+    // materi 
+    Route::resource('materi', MateriController::class)->names([
+        'index' => 'admin.materi.index',
+        // 'create' => 'admin.materi.create',
+        'store' => 'admin.materi.store',
+        // 'show' => 'admin.materi.show',
+        // 'edit' => 'admin.materi.edit',
+        'update' => 'admin.materi.update',
+        'destroy' => 'admin.materi.destroy',
+    ]);
 
     // Routes untuk mengelola kelas
     Route::resource('kelas', KelasController::class)->names([
@@ -98,6 +108,12 @@ Route::prefix('admin')->group(function () {
         'store' => 'admin.kelas.store',
         'update' => 'admin.kelas.update',
         'destroy' => 'admin.kelas.destroy',
+    ]);
+    Route::resource('nilai', NilaiController::class)->names([
+        'index' => 'admin.nilai.index',
+        'store' => 'admin.nilai.store',
+        'update' => 'admin.nilai.update',
+        'destroy' => 'admin.nilai.destroy',
     ]);
 
     // Routes untuk mengelola jadwal

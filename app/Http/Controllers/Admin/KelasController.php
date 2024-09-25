@@ -15,6 +15,8 @@ class KelasController extends Controller
     {
         // Mengambil semua data kelas
         $kelas = Kelas::all();
+        $kelas = Kelas::with(['jadwal.siswa'])->get();
+
         return view('admin.kelas.index', compact('kelas'));
     }
 

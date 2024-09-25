@@ -23,44 +23,35 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ url('admin/kelas') }}">Daftar Kelas</a>
                                 <a class="nav-link" href="{{ url('admin/jadwal') }}">Jadwal</a>
+                                <a class="nav-link" href="{{ url('admin/materi') }}">Materi</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Data
+                            Pegawai
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Pegawai
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ url('admin/staff') }}">Staff</a>
-                                        <a class="nav-link" href="{{ url('admin/instruktur') }}">Instruktur</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseError" aria-expanded="false"
-                                    aria-controls="pagesCollapseError">
-                                    Siswa
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ url('admin/siswa') }}">Data Siswa</a>
-                                        <a class="nav-link" href="#">Calon Siswa</a>
-                                        {{-- <a class="nav-link" href="500.html">500 Page</a> --}}
-                                    </nav>
-                                </div>
+                                <a class="nav-link" href="{{ url('admin/staff') }}">Staff</a>
+                                <a class="nav-link" href="{{ url('admin/instruktur') }}">Instruktur</a>
+                                
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePages2" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Siswa
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages2" aria-labelledby="headingTwo"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="{{ url('admin/siswa') }}">Daftar Siswa</a>
+                                <a class="nav-link" href="{{ url('admin/nilai') }}">Nilai</a>
+                                                             
                             </nav>
                         </div>
                         <a class="nav-link" href="{{ url('admin/pembayaran') }}">

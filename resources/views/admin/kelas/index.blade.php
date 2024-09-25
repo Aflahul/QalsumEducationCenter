@@ -71,19 +71,20 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Daftar jadwal yang berkaitan dengan kelas -->
-                                                @if ($k->jadwals->isEmpty())
+                                                @if ($k->jadwal->isEmpty())
                                                     <p>Tidak ada jadwal untuk kelas ini.</p>
                                                 @else
                                                     <ul>
-                                                        @foreach ($k->jadwals as $jadwal)
+                                                        @foreach ($k->jadwal as $j)
                                                             <li>
-                                                                <strong>Jadwal</strong> {{ $jadwal->nama_jadwal }} <br>
-                                                                <strong>Hari:</strong> {{ $jadwal->hari }} <br>
-                                                                <strong>Jam:</strong> {{ $jadwal->jam_mulai }} -
-                                                                {{ $jadwal->jam_selesai }} <br>
+                                                                <strong>Jadwal</strong> {{ $j->nama_jadwal }} <br>
+                                                                <strong>Hari:</strong> {{ $j->hari }} <br>
+                                                                <strong>Jam:</strong> {{ $j->jam_mulai }} -
+                                                                {{ $j->jam_selesai }} <br>
                                                                 <strong>Instruktur:</strong>
-                                                                {{ $jadwal->instruktur->nama }} <br>
-                                                                <strong> Jumlah siswa </strong>
+                                                                {{ $j->instruktur->nama }} <br>
+                                                                {{-- <strong> Jumlah siswa </strong> --}}
+                                                                <strong>Jumlah siswa:</strong> {{ $j->siswa->count() }} orang
                                                             </li>
                                                         @endforeach
                                                     </ul>

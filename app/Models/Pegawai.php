@@ -33,7 +33,7 @@ class Pegawai extends Model
     }
 
     // Relasi ke tabel `Jadwal` (untuk instruktur)
-    public function jadwals()
+    public function jadwal()
     {
         return $this->hasMany(Jadwal::class, 'id_pegawai', 'id');
     }

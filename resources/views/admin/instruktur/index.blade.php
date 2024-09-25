@@ -44,7 +44,7 @@
                                     <td>{{ $p->pegawai_id }}</td>
                                     <td>{{ $p->nama }}</td>
                                     <td class="text-capitalize">
-                                        @if ($p->jadwals->isEmpty())
+                                        @if ($p->jadwal->isEmpty())
                                             Belum memiliki jadwal kelas
                                             <!-- Tombol Tambahkan Jadwal -->
                                             <br>
@@ -53,8 +53,8 @@
                                                 Tambahkan Sekarang
                                             </a>
                                         @else
-                                            @foreach ($p->jadwals as $jadwal)
-                                                {{ $jadwal->kelas->nama_kelas }} ({{ $jadwal->kelas->jenis_kelas }}) <br>
+                                            @foreach ($p->jadwal as $j)
+                                                {{ $j->kelas->nama_kelas }} ({{ $j->kelas->jenis_kelas }}) <br>
                                             @endforeach
                                         @endif
                                     </td>
@@ -104,10 +104,10 @@
                                                 </p>
                                                 <p><strong>Kelas yang Diampu:</strong></p>
                                                 <ul>
-                                                    @foreach ($p->jadwals as $jadwal)
+                                                    @foreach ($p->jadwal as $j)
                                                         <li class="text-capitalize">
-                                                            {{ $jadwal->kelas->nama_kelas }}
-                                                            - {{ $jadwal->kelas->jenis_kelas }} <br>
+                                                            {{ $j->kelas->nama_kelas }}
+                                                            - {{ $j->kelas->jenis_kelas }} <br>
                                                         </li>
                                                     @endforeach
                                                 </ul>

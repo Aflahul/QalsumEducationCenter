@@ -35,5 +35,15 @@ class Jadwal extends Model
     public function pendaftaran()
     {
         return $this->hasMany(Pendaftaran::class, 'id_jadwal');
+        
     }
+     public function penilaianKelas()
+    {
+        return $this->hasMany(PenilaianKelas::class, 'id_jadwal');
+    }
+    public function siswa()
+{
+    return $this->hasMany(Siswa::class, 'id_jadwal');
+}
+
 }

@@ -24,7 +24,7 @@ class InstrukturController extends Controller
     // }
     public function index()
     {
-        $pegawai = Pegawai::with('jadwals.kelas')->where('jabatan', 'instruktur')->get();
+        $pegawai = Pegawai::with('jadwal.kelas')->where('jabatan', 'instruktur')->get();
         return view('admin.instruktur.index', compact('pegawai'));
     }
 

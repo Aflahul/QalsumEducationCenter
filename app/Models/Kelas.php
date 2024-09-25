@@ -24,5 +24,20 @@ class Kelas extends Model
     {
         return $this->hasMany(Jadwal::class, 'id_kelas');
     }
-    
+     
+
+    // Relasi dengan materi
+    public function materi()
+    {
+        return $this->hasMany(Materi::class, 'id_kelas');
+    }
+    public function penilaianKelas()
+{
+    return $this->hasMany(PenilaianKelas::class, 'id_kelas');
+}
+public function nilai()
+{
+    return $this->hasMany(Nilai::class, 'id_kelas');
+}
+
 }

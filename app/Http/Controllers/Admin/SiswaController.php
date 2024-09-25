@@ -16,6 +16,8 @@ class SiswaController extends Controller
     {
         // Ambil data siswa dengan relasi ke PendaftaranKelas, Kelas, dan Jadwal
         $siswa = Siswa::with('jadwal.kelas')->get();
+        $siswa = Siswa::with('nilai')->get();
+
         $jadwal = Jadwal::all();  // Ambil semua kelas untuk pilihan saat menambah/edit siswa
         $kelas= Kelas::all();  // Ambil semua kelas untuk pilihan saat menambah/edit siswa
 
