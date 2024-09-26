@@ -2,17 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use PDF;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use App\Models\Sertifikat;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SertifikatController extends Controller
 {
     public function index()
     {
-        $sertifikat = Sertifikat::all();
-        return view('admin.sertifikat.index', compact('sertifikat'));
+        // Ambil semua data siswa beserta relasi yang diperlukan
+        $siswa = Siswa::with(['kelas', 'sertifikat', 'nilai'])->get();
+
+        // Return ke view index sertifikat
+        return view('admin.sertifikat.index', compact('siswa'));
     }
+
+    // Fungsi untuk mencetak sertifikat sebagai PDF
+    public function print($id_siswa)
+    {
+        // Cari siswa berdasarkan ID dan load relasinya
+        $siswa = Siswa::with(['kelas', 'sertifikat', 'penilaianKelas.materi'])->findOrFail($id_siswa);
+
+        // Load view sertifikat dan generate PDF
+        $pdf = \PDF::loadView('admin.sertifikat.print', compact('siswa'));
+
+        // Return PDF stream ke browser
+        return $pdf->stream('sertifikat_'.$siswa->nama.'.pdf');
+    }
+
 
     public function show($id)
     {
@@ -67,5 +87,14 @@ public function store(Request $request)
 
     return redirect()->route('admin.sertifikat.index')->with('success', 'Sertifikat berhasil diterbitkan.');
 }
+
+public function preview($id)
+{
+    $siswa = Siswa::with('jadwal.kelas', 'penilaianKelas.materi', 'nilai')->findOrFail($id);
+
+    return view('admin.sertifikat.preview', compact('siswa'));
+}
+
+
 
 }

@@ -1,0 +1,40 @@
+@media print {
+    body {
+        background-color: white;
+    }
+
+    /* Hapus semua margin dan padding saat mencetak */
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Buat tabel lebih rapi di mode cetak */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #000;
+    }
+
+    /* Hapus tombol saat mencetak */
+    button, a {
+        display: none;
+    }
+
+    /* Atur tampilan teks header saat mencetak */
+    h1, h2, h4 {
+        text-align: center;
+        font-size: 18pt;
+    }
+
+    p {
+        text-align: center;
+        font-size: 12pt;
+    }
+}

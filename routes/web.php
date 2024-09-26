@@ -155,6 +155,9 @@ Route::prefix('admin')->group(function () {
         'destroy' => 'admin.sertifikat.destroy',
         
     ]);
+    Route::get('sertifikat/{id_siswa}/print', [SertifikatController::class, 'print'])->name('admin.sertifikat.print'); 
+    Route::get('/sertifikat/{id}/preview', [SertifikatController::class, 'preview'])->name('admin.sertifikat.preview');
+
 });
 
 // Rute untuk instruktur
