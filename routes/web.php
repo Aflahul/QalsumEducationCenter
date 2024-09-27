@@ -1,11 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\NilaiController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\ProfilController;
+use App\Http\Controllers\Admin\SyaratController;
 use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\InstrukturController;
 use App\Http\Controllers\Admin\PembayaranController;
@@ -15,45 +22,10 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Instruktur\JadwalController as InstrukturJadwalController;
 use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardController;
 
-// Route untuk halaman utama (home)
-Route::get('/', function () {
-    return view('home.index');
-});
 
-// Route untuk admin dashboard
+
+
 // Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-
-//     // Routes untuk mengelola pegawai
-//     Route::resource('pegawai', PegawaiController::class);
-
-//     // Routes untuk mengelola siswa
-//     Route::resource('siswa', SiswaController::class)->only(['index', 'show']);
-
-//     // Routes untuk mengelola kelas
-//     Route::resource('kelas', KelasController::class);
-
-//     // Routes untuk mengelola jadwal
-//     Route::resource('jadwal', AdminJadwalController::class)->only(['index', 'edit', 'update']);
-
-//     // Routes untuk mengelola pembayaran
-//     Route::resource('pembayaran', PembayaranController::class)->only(['index', 'show']);
-
-//     // Routes untuk mengelola sertifikat
-//     Route::resource('sertifikat', SertifikatController::class)->only(['index', 'show']);
-// });
-
-// // Route untuk instruktur dashboard
-// Route::prefix('instruktur')->middleware(['auth', 'role:instruktur'])->group(function () {
-//     Route::get('/dashboard', [InstrukturDashboardController::class, 'index'])->name('instruktur.dashboard');
-
-//     // Routes untuk mengelola nilai
-//     Route::resource('nilai', NilaiController::class)->only(['index', 'edit', 'update']);
-
-//     // Routes untuk melihat dan mengedit jadwal
-//     Route::resource('jadwal', InstrukturJadwalController::class)->only(['index', 'edit', 'update']);
-// });
-//============================================================================================
 
 // Rute untuk admin
 Route::prefix('admin')->group(function () {
@@ -157,29 +129,53 @@ Route::prefix('admin')->group(function () {
     ]);
     Route::get('sertifikat/{id_siswa}/print', [SertifikatController::class, 'print'])->name('admin.sertifikat.print'); 
     Route::get('/sertifikat/{id}/preview', [SertifikatController::class, 'preview'])->name('admin.sertifikat.preview');
+    Route::resource('profil', ProfilController::class)->names([
+        'index' => 'admin.profil.index',
+        'store' => 'admin.profil.store',
+        'update' => 'admin.profil.update',
+        'destroy' => 'admin.profil.destroy',
+
+        
+    ]);
+    Route::resource('agenda', AgendaController::class)->names([
+        'index' => 'admin.agenda.index',
+        'store' => 'admin.agenda.store',
+        'update' => 'admin.agenda.update',
+        'destroy' => 'admin.agenda.destroy',
+
+        
+    ]);
+    Route::resource('berita', BeritaController::class)->names([
+        'index' => 'admin.berita.index',
+        'store' => 'admin.berita.store',
+        'update' => 'admin.berita.update',
+        'destroy' => 'admin.berita.destroy',
+
+        
+    ]);
+    Route::resource('syarat', SyaratController::class)->names([
+        'index' => 'admin.syarat.index',
+        'store' => 'admin.syarat.store',
+        'update' => 'admin.syarat.update',
+        'destroy' => 'admin.syarat.destroy',
+
+        
+    ]);
+    Route::resource('galeri', GaleriController::class)->names([
+        'index' => 'admin.galeri.index',
+        'store' => 'admin.galeri.store',
+        'update' => 'admin.galeri.update',
+        'destroy' => 'admin.galeri.destroy',
+
+        
+    ]);
+
 
 });
 
-// Rute untuk instruktur
-Route::prefix('instruktur')->group(function () {
-    Route::get('/dashboard', [InstrukturDashboardController::class, 'index'])->name('instruktur.dashboard');
-
-    // Routes untuk mengelola nilai
-    Route::resource('nilai', NilaiController::class)->names([
-        'index' => 'instruktur.nilai.index',
-        'edit' => 'instruktur.nilai.edit',
-        'update' => 'instruktur.nilai.update',
-    ]);
-
-    // Routes untuk melihat dan mengedit jadwal
-    Route::resource('jadwal', InstrukturJadwalController::class)->names([
-        'index' => 'instruktur.jadwal.index',
-        'edit' => 'instruktur.jadwal.edit',
-        'update' => 'instruktur.jadwal.update',
-    ]);
-});
 
 
+    
 
 // Route untuk halaman pendaftaran siswa
 Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
@@ -189,6 +185,6 @@ Route::get('pendaftaran/confirm', [PendaftaranController::class, 'confirm'])->na
 // Authentication Routes
 Auth::routes();
 
-// Auth::routes();
+// Rute untuk Landing Pag
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('', [HomeController::class, 'index'])->name('home');

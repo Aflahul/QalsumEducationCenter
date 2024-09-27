@@ -22,7 +22,7 @@
                                 <th>Nama Siswa</th>
                                 <th>Kelas</th>
                                 <th>Rerata Nilai</th>
-                                <th>Status Kelayakan</th>
+                                {{-- <th>Status Kelayakan</th> --}}
                                 <th>Status Penerbitan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -31,15 +31,15 @@
                             @foreach ($siswa as $s)
                                 @php
                                     $nilaiRataRata = $s->nilai->avg('nilai_rata_rata');
-                                    $statusKelayakan = $nilaiRataRata >= 75 ? 'Layak' : 'Belum Layak';
-                                    $statusTerbit = $nilaiRataRata >= 75 ? 'Belum Terbit' : 'Tidak Bisa Diterbitkan';
+                                    // $statusKelayakan = $nilaiRataRata >= 75 ? 'Layak' : 'Belum Layak';
+                                    $statusTerbit = $nilaiRataRata >= 75 ? 'Dapat Diterbitkan' : 'Tidak Bisa Diterbitkan';
                                 @endphp
                                 <tr>
                                     <td>{{ $s->nomor_siswa }}</td>
                                     <td>{{ $s->nama }}</td>
                                     <td>{{ $s->jadwal->kelas->nama_kelas }}</td>
                                     <td>{{ $nilaiRataRata ?? 'Belum Ada Nilai' }}</td>
-                                    <td>{{ $statusKelayakan }}</td>
+                                    {{-- <td>{{ $statusKelayakan }}</td> --}}
                                     <td>{{ $statusTerbit }}</td>
                                     <td>
                                         {{-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal"

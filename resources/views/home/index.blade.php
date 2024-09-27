@@ -3,11 +3,12 @@
 @section('title', 'Selamat Datang di Qalsum Education Center')
 
 @section('content')
-<div class="container">
-    <div class="jumbotron text-center">
-        <h1>Selamat Datang di Qalsum Education Center</h1>
-        <p>Solusi terbaik untuk meningkatkan keterampilan Anda.</p>
-        <a href="{{ route('pendaftaran.index') }}" class="btn btn-primary">Daftar Sekarang</a>
-    </div>
-</div>
+    @include('home.section.home')
+    @include('home.section.programkursus')
+    @include('home.section.jadwalkursus')
+    @include('home.section.galeri')
+    @include('home.section.agenda')
+    @include('home.section.berita')
+    @include('home.section.profil')
+    @include('home.section.syarat')
 @endsection

@@ -29,9 +29,14 @@ class DatabaseSeeder extends Seeder
             // SiswaSeeder::class,
             // MateriSeeder::class,
             // PembayaranSeeder::class,
-            PenilaianKelasSeeder::class,
-            NilaiSeeder::class,
+            // PenilaianKelasSeeder::class,
+            // NilaiSeeder::class,
             // SertifikatSeeder::class,
+            // AgendaSeeder::class,
+            // BeritaSeeder::class,
+            // GaleriSeeder::class,
+            // SyaratSeeder::class,
+            ProfilSeeder::class,
             
         ]);
     }
