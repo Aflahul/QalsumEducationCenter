@@ -11,8 +11,8 @@ class AgendaController extends Controller
     // Menampilkan halaman index agenda
     public function index()
     {
-        $agenda = Agenda::all(); // Mengambil semua data agenda
-        return view('admin.agenda.index', compact('agenda')); // Mengirim data ke view
+        $agendas = Agenda::all(); // Mengambil semua data agenda
+        return view('admin.agenda.index', compact('agendas')); // Mengirim data ke view
     }
 
     // Menyimpan agenda baru

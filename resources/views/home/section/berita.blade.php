@@ -1,85 +1,55 @@
-<section id="berita" class="pt-0 bg-gradient-dark">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-6 mx-auto text-center">
-                    <h2 class="mb-0">Trusted by over</h2>
-                    <h2 class="text-gradient text-primary mb-3">1,679,477+ web developers</h2>
-                    <p class="lead">Many Fortune 500 companies, startups, universities and governmental
-                        institutions love Creative Tim's products. </p>
-                </div>
-            </div>
-            <div class="row mt-6">
-                <div class="col-lg-4 col-md-8">
-                    <div class="card card-plain">
-                        <div class="card-body">
-                            <div class="author">
-                                <div class="name">
-                                    <h6 class="mb-0 font-weight-bolder">Nick Willever</h6>
-                                    <div class="stats">
-                                        <i class="far fa-clock"></i> 1 day ago
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-4">"This is an excellent product, the documentation is excellent and
-                                helped me get things done more efficiently."</p>
-                            <div class="rating mt-3">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8 ms-md-auto">
-                    <div class="card bg-gradient-primary">
-                        <div class="card-body">
-                            <div class="author align-items-center">
-                                <div class="name">
-                                    <h6 class="text-white mb-0 font-weight-bolder">Shailesh Kushwaha</h6>
-                                    <div class="stats text-white">
-                                        <i class="far fa-clock"></i> 1 week ago
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-4 text-white">"I found solution to all my design needs from Creative Tim.
-                                I use them as a freelancer in my hobby projects for fun! And its really affordable,
-                                very humble guys !!!"</p>
-                            <div class="rating mt-3">
-                                <i class="fas fa-star text-white"></i>
-                                <i class="fas fa-star text-white"></i>
-                                <i class="fas fa-star text-white"></i>
-                                <i class="fas fa-star text-white"></i>
-                                <i class="fas fa-star text-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="card card-plain">
-                        <div class="card-body">
-                            <div class="author">
-                                <div class="name">
-                                    <h6 class="mb-0 font-weight-bolder">Samuel Kamuli</h6>
-                                    <div class="stats">
-                                        <i class="far fa-clock"></i> 3 weeks ago
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-4">"Great product. Helped me cut the time to set up a site. I used the
-                                components within instead of starting from scratch. I highly recommend for
-                                developers who want to spend more time on the backend!."</p>
-                            <div class="rating mt-3">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<section id="berita" class="pt-5 bg-gradient-white rounded-lg">
+   
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-6 mx-auto text-center">
+                <h2 class="mb-0 ">Berita Terkini</h2>
+                <p class="lead ">Informasi terbaru dari lembaga kursus kami.</p>
             </div>
         </div>
-    </section>
+        <div class="row mt-6">
+            @foreach($beritas as $berita)
+            <div class="col-lg-4 col-md-8 mb-4">
+                <div class="card bg-gradient-dark">
+                    <div class="card-body text-white">
+                        <div class="author">
+                            <div class="name">
+                                <h6 class="mb-0 font-weight-bolder text-white">{{ $berita->judul }}</h6>
+                                <div class="stats">
+                                    <i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($berita->tanggal_publikasi)->diffForHumans() }}
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4">{{ Str::limit($berita->konten, 100) }}</p>
+                        <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#beritaDetailModal{{ $berita->id }}">
+                            Baca Selengkapnya
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Detail Berita -->
+            <div class="modal fade" id="beritaDetailModal{{ $berita->id }}" tabindex="-1" role="dialog" aria-labelledby="beritaDetailModalLabel{{ $berita->id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="beritaDetailModalLabel{{ $berita->id }}">{{ $berita->judul }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if($berita->gambar)
+                                <img src="{{ asset('storage/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="img-fluid mb-3">
+                            @endif
+                            <p><strong>Tanggal Publikasi:</strong> {{ \Carbon\Carbon::parse($berita->tanggal_publikasi)->format('d M Y') }}</p>
+                            <p>{{ $berita->konten }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
