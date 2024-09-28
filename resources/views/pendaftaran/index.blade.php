@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('title', 'Pendaftaran')
 @section('content')
-    <div class="container">
+    <div class="container pb-6">
         <h2 class="text-center my-4">Pendaftaran</h2>
         <div class="row">
             @foreach ($kelas as $k)
@@ -40,7 +40,7 @@
         </div>
 
         <!-- Formulir Pendaftaran -->
-        <div class="card py-4 shadow ">
+        <div class="card py-4 shadow-xl ">
             <div class="row py-5">
                 <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
                     <h3 class="text-center">Formulir Pendaftaran</h3>
