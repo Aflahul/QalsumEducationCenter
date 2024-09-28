@@ -32,11 +32,7 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai');
     }
-    public function pendaftaran()
-    {
-        return $this->hasMany(Pendaftaran::class, 'id_jadwal');
-        
-    }
+    
      public function penilaianKelas()
     {
         return $this->hasMany(PenilaianKelas::class, 'id_jadwal');

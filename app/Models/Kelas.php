@@ -10,7 +10,6 @@ class Kelas extends Model
     use HasFactory;
 
     protected $table = 'kelas';
-
     // Tentukan kolom mana yang dapat diisi
     protected $fillable = [
         'nama_kelas',

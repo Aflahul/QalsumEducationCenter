@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\SelesaiController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\NilaiController;
 use App\Http\Controllers\Admin\SiswaController;
@@ -14,11 +14,12 @@ use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\SyaratController;
 use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\PembayaranSiswaController;
 use App\Http\Controllers\Admin\InstrukturController;
-use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\SertifikatController;
 use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\PembayaranController as AdminPembayaranController;
 use App\Http\Controllers\Instruktur\JadwalController as InstrukturJadwalController;
 use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardController;
 
@@ -104,16 +105,14 @@ Route::prefix('admin')->group(function () {
     ]);
 
     // Routes untuk mengelola pembayaran
-    Route::resource('pembayaran', PembayaranController::class)->names([
+    Route::resource('pembayaran', AdminPembayaranController::class)->names([
     'index' => 'admin.pembayaran.index',
         'store' => 'admin.pembayaran.store',
         'update' => 'admin.pembayaran.update',
         'destroy' => 'admin.pembayaran.destroy',
     ]);
 
-    Route::get('/siswa/{id}/biaya', [PembayaranController::class, 'getBiaya'])->name('admin.pembayaran.getBiaya');
-    Route::post('/pembayaran/input-siswa', [PembayaranController::class, 'inputSiswa'])->name('admin.pembayaran.inputSiswa');
-
+   
 
 
     // Routes untuk mengelola sertifikat
@@ -179,10 +178,11 @@ Route::prefix('admin')->group(function () {
 
 // Route untuk halaman pendaftaran siswa
 Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
-Route::post('pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
-Route::get('pendaftaran/confirm', [PendaftaranController::class, 'confirm'])->name('pendaftaran.confirm');
+Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
 
-// Authentication Routes
+Route::get('/pendaftaran/selesai/{siswa_id}', [SelesaiController::class, 'index'])->name('pendaftaran.selesai');
+Route::get('/pembayaran/{siswa_id}', [PembayaranSiswaController::class, 'index'])->name('pembayaran.index');
+Route::post('/pembayaran/submit', [PembayaranSiswaController::class, 'submit'])->name('pembayaran.submit');
 Auth::routes();
 
 // Rute untuk Landing Pag

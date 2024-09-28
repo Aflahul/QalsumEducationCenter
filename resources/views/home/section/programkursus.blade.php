@@ -4,8 +4,15 @@
             class="position-absolute start-0 top-md-0 w-100 opacity-2">
 
         <div class="container py-5 ">
-
             <div class="row align-items-center">
+                <div class="col-lg-12 text-center mb-4">
+                    <h2 class="text-white">Program Kursus</h2>
+                    <p class="text-white opacity-8">
+                        Temukan beragam program kursus yang dirancang khusus untuk mengembangkan keterampilan Anda di berbagai bidang. 
+                        Mulai dari kelas pemula hingga profesional, kami menyediakan pembelajaran yang terstruktur dan didukung oleh instruktur berpengalaman. 
+                        
+                    </p>
+                </div>
                 <div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-0 mt-4">
                     <div class="rotating-card-container">
                         <div
@@ -36,6 +43,7 @@
                         </div>
                     </div>
                 </div>
+                <!--Fasilitas-->
                 <div class="col-lg-6 ms-auto">
                     <div class="row justify-content-start">
                         <div class="col-md-6">

@@ -4,6 +4,8 @@
             <div class="row text-center my-sm-5">
                 <div class="col-lg-6 mx-auto">
                     <span class="badge bg-primary mb-3">Profil Lembaga</span>
+                    <h2 class="mb-4">Kenali Lembaga Kami</h2>
+                    
                 </div>
             </div>
         </div>
@@ -55,15 +57,16 @@
                 </div>
             </div>
             <div class="col-lg-4 ms-auto mt-lg-0 mt-4">
-                <div class="card">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 shadow">
-                        <a class="d-block blur-shadow-image">
+                <div class="card bg-gradient-dark">
+                    <div class="card-header rounded-lg p-0 bg-gradient-light position-relative mt-n4 mx-3 z-index-2 shadow-black shadow-lg"
+                        style="box-shadow: 6px; border-radius: 8px; ">
+                        <a class="d-block blur-shadow-image border-radius-lg rounded-lg">
                             <img src="{{ asset($profile->logo) }}" alt="Logo {{ $profile->nama_lembaga }}"
-                                class="img-fluid border-radius-lg p-4">
+                                class="img-fluid border-radius-lg p-4 rounded-lg">
                         </a>
                     </div>
                     <div class="card-body  text-center">
-                        <p class="text-sm">{{ $profile->deskripsi }}</p>
+                        <p class=" text-white text-sm">{{ $profile->deskripsi }}</p>
 
                     </div>
                 </div>

@@ -23,19 +23,8 @@ class Siswa extends Model
         'jenis_kelamin',
         'foto',
     ];
-
-    // public function pengguna()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'username', 'username');
-    // }
-
    
-   
-    
-    public function pendaftaran()
-    {
-        return $this->hasOne(Pendaftaran::class);
-    }
+
     public function jadwal()
     {
         return $this->belongsTo(Jadwal::class, 'id_jadwal'); // mengacu pada kolom 'jadwal' di tabel siswa

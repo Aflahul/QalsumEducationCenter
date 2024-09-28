@@ -11,4 +11,5 @@
     @include('home.section.berita')
     @include('home.section.profil')
     @include('home.section.syarat')
+    
 @endsection

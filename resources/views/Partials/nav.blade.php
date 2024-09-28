@@ -64,7 +64,7 @@
                     </ul>
                 </li>
                 <li class="nav-item my-auto ms-3 ms-lg-0 w-auto">
-                    <a href="#pendaftaran" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">Pendaftaran
+                    <a href="{{ url('pendaftaran') }}" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">Pendaftaran
                         Online</a>
                 </li>
             </ul>

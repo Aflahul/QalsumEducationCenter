@@ -33,11 +33,12 @@ class HomeController extends Controller
     public function index()
     {
          $jumlahSiswa = Siswa::count(); // Hitung jumlah siswa
-         $galeris = Galeri::all(); 
-         $agendas = Agenda::all(); 
+         $galeris = Galeri::paginate(8);
+         $agendas = Agenda::paginate(6);
+         $kelas = Kelas::all(); 
          $profile = Profil::first();
          $syarat = Syarat::first();
-         $beritas = Berita::all(); 
+         $beritas = Berita::paginate(6); 
          $jumlahPegawai = Pegawai::where('jabatan', 'instruktur')->count();
          $jumlahKelas = Kelas::count(); 
           $jadwals = Jadwal::with(['kelas', 'siswa'])->get();
@@ -47,6 +48,7 @@ class HomeController extends Controller
             'galeris',
             'beritas',
             'profile',
+            'kelas',
             'syarat'
 
         ));
