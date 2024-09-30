@@ -31,7 +31,13 @@ use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardCo
 // Rute untuk admin
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    
+    // // Rute untuk Pengaturan Integrasi Pihak Ketiga (WhatsApp)
+    // Route::get('/settings/integrations/whatsapp', [AdminDashboardController::class, 'whatsappSettings'])->name('admin.settings.whatsapp');
 
+    // // Rute untuk pengingat pembayaran tertunda
+    // Route::get('/reminders/payments', [AdminDashboardController::class, 'paymentReminders'])->name('admin.reminders.payments');
+    
     // Routes untuk mengelola staf
     Route::resource('staff', PegawaiController::class)->names([
         'index' => 'admin.pegawai.index',
