@@ -13,7 +13,7 @@
                     <p>Kelas: {{ $siswa->jadwal->kelas->nama_kelas }}</p>
                     <p>Nilai Akhir: <strong>{{ $siswa->nilai->avg('nilai_rata_rata') }}</strong></p>
                 </div>
-                
+
                 <!-- Garis pembatas -->
                 <hr class="my-4">
 
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($siswa->penilaianKelas as $penilaian)
+                        @foreach ($siswa->penilaianKelas as $penilaian)
                             <tr>
                                 <td>{{ $penilaian->materi->nama_materi }}</td>
                                 <td>{{ $penilaian->nilai }}</td>
@@ -54,18 +54,16 @@
 
                 <!-- Tombol Cetak -->
                 <div class="text-center">
-                    <button class="btn btn-primary" onclick="window.print()">Cetak Sertifikat</button>
+                    {{-- <button class="btn btn-primary" onclick="window.print()">Cetak Sertifikat</button> --}}
+                    {{-- <button id="printCertificate" class="btn btn-success">Cetak Sertifikat</button> --}}
+                    <a href="{{ route('admin.sertifikat.p') }}" class="btn btn-secondary">Cetak Sertifikat</a>
                     <a href="{{ route('admin.sertifikat.index') }}" class="btn btn-secondary">Kembali</a>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Trigger print preview on page load -->
-    <script>
-        window.onload = function() {
-            // Optional: Automatically open print preview after a slight delay
-            // setTimeout(() => { window.print(); }, 500); 
-        };
-    </script>
+    
 @endsection

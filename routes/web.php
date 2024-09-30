@@ -112,11 +112,13 @@ Route::prefix('admin')->group(function () {
 
     // Routes untuk mengelola pembayaran
     Route::resource('pembayaran', AdminPembayaranController::class)->names([
-    'index' => 'admin.pembayaran.index',
+        'index' => 'admin.pembayaran.index',
         'store' => 'admin.pembayaran.store',
         'update' => 'admin.pembayaran.update',
         'destroy' => 'admin.pembayaran.destroy',
+        // 'inputSiswa' => 'admin.pembayaran.inputSiswa',
     ]);
+    Route::get('admin/pembayaran/inputSiswa', [AdminPembayaranController::class])->name('admin.pembayaran.inputSiswa');
 
    
 
@@ -132,6 +134,8 @@ Route::prefix('admin')->group(function () {
         'destroy' => 'admin.sertifikat.destroy',
         
     ]);
+    Route::get('/api/siswa/{id}', [SiswaController::class, 'show']);
+    // Route::get('/admin/sertifikat/print/{id}', [SertifikatController::class, 'print'])->name('admin.sertifikat.print');
     Route::get('sertifikat/{id_siswa}/print', [SertifikatController::class, 'print'])->name('admin.sertifikat.print'); 
     Route::get('/sertifikat/{id}/preview', [SertifikatController::class, 'preview'])->name('admin.sertifikat.preview');
     Route::resource('profil', ProfilController::class)->names([

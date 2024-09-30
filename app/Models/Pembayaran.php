@@ -17,6 +17,7 @@ class Pembayaran extends Model
         'angsuran1',
         'angsuran2',
         'sisa_pembayaran',
+        'bukti',
         'status'
     ];
 

@@ -48,7 +48,7 @@
                                         </button> --}}
 
                                         @if ($nilaiRataRata >= 75)
-                                            <a href="{{ route('admin.sertifikat.preview', $s->id) }}"
+                                            <a href="{{ route('admin.sertifikat.print', $s->id) }}"
                                                 class="btn btn-primary btn-sm" target="_blank" >Cetak Sertifikat</a>
                                             {{-- <a href="{{ route('admin.sertifikat.print', $s->id) }}"
                                                 class="btn btn-primary btn-sm">Cetak Sertifikat</a> --}}

@@ -121,4 +121,5 @@ class SiswaController extends Controller
 
         return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus.');
     }
+    
 }

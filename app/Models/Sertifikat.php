@@ -15,7 +15,9 @@ class Sertifikat extends Model
         'id_siswa',
         'id_kelas',
         'nilai_akhir',
-        'tanggal_terbit',
+        'tanggal_penyelesaian',
+'nomor_sertifikat',
+'status',
     ];
 
     public function siswa()

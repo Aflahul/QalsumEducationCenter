@@ -14,8 +14,9 @@ class Nilai extends Model
     protected $fillable = [
         'id_siswa',
         'id_kelas',
-        'sub_aspek_id',
-        'nilai',
+        'nilai_total',
+        'nilai_rata_rata',
+        'grade',
     ];
 
     public function siswa()

@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $pendaftaran_baru = Siswa::where('created_at', '>=', now()->subDays(30))->count();
 
         // Siswa yang telah mendapatkan sertifikat
-        $siswa_bersertifikat = Sertifikat::count();
+        $siswa_bersertifikat = Sertifikat::where('status', 'Layak')->count();
 
         // Daftar pembayaran tertunda
         $pembayaran_tertunda = Pembayaran::with('siswa.jadwal.kelas')
