@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Kelas;
-use App\Models\Jadwal;
 use App\Models\Nilai;
 use App\Models\Siswa;
+use App\Models\Jadwal;
+use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Sertifikat;
 use App\Models\Pendaftaran;
@@ -19,6 +20,7 @@ class DashboardController extends Controller
         // Jumlah siswa yang terdaftar
         $jumlah_siswa = Siswa::count();
         $jumlahKelasAktif = Kelas::count();
+        $jumlahPegawai = Pegawai::where('jabatan','Instruktur')->count();
        
         // Ambil semua jadwal dengan menghitung jumlah siswa per jadwal
         $jadwal = Jadwal::with('siswa')->get(); // Ambil semua jadwal dengan relasi siswa
@@ -71,6 +73,7 @@ class DashboardController extends Controller
             'jumlahLulus'=>$jumlahLulus,
             'jumlahSiswaPerJadwal'=>$jumlahSiswaPerJadwal,
             'jumlahTidakLulus'=>$jumlahTidakLulus,
+            'jumlahPegawai'=>$jumlahPegawai,
         ]);
     }
 //     public function index()

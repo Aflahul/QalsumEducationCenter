@@ -1,39 +1,85 @@
-<!-- resources/views/pembayaran/index.blade.php -->
-@extends('layouts.guest')
-
+@extends('layouts.guest1')
+@section('title', 'Pembayaran')
 @section('content')
-<div class="container">
-    <h2 class="text-center my-4">Pembayaran Pendaftaran</h2>
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            Informasi Pendaftaran
+    <div class="container">
+        <h2>Pembayaran Siswa: {{ $siswa->nama }}</h2>
+
+        <h5>Informasi Kelas</h5>
+        <p>Kelas: {{ $siswa->jadwal->kelas->nama_kelas }}</p>
+        <p>Jadwal: {{ $siswa->jadwal->nama_jadwal }} ({{ $siswa->jadwal->hari }} {{ $siswa->jadwal->jam_mulai }} -
+            {{ $siswa->jadwal->jam_selesai }})</p>
+        <div class="row mb-4">
+            <div class="col-md-5">
+                <h5>Status Pembayaran</h5>
+                <div class="card p-2 bg-light min-h-24">
+                    <p>Status: {{ $pembayaran->status }}</p>
+                    <p>Total Biaya: Rp {{ number_format($pembayaran->biaya_total, 0, ',', '.') }}</p>
+                    {{-- <p>Angsuran Pertama: Rp {{ number_format($pembayaran->angsuran1, 0, ',', '.') }}</p> --}}
+                    {{-- <p>Angsuran Kedua: Rp {{ number_format($pembayaran->angsuran2, 0, ',', '.') }}</p> --}}
+                    <p>Sisa Pembayaran: Rp {{ number_format($pembayaran->sisa_pembayaran, 0, ',', '.') }}</p>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h5>Metode Pembayaran</h5>
+                <div class="card p-2 bg-light min-h-24">
+                     Silahkan lakukan pembayaran ke:
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <img src="{{ asset('uploads/logo/mandiri.png') }}" alt="" class="img-fluid"
+                                        style="max-width: 100px;">
+                                </div>
+                                <div class="col">
+                                    <p><b>Mandiri</b> <br>
+                                        xxxx-xxxx-xxxx <br>
+                                        <i>Qalsum Education Center</i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <img src="{{ asset('uploads/logo/bri.png') }}" alt="" class="img-fluid"
+                                        style="max-width: 100px;">
+                                </div>
+                                <div class="col">
+                                    <p><b>BRI</b> <br>
+                                        xxxx-xxxx-xxxx <br>
+                                        <i>Qalsum Education Center</i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <h5>Nama Siswa: {{ $siswa->nama }}</h5>
-            <p>Kontak: {{ $siswa->kontak_hp }}</p>
-            <p>Kelas: {{ $siswa->jadwal->kelas->nama_kelas }}</p>
-            <p>Jadwal: {{ $siswa->jadwal->nama_jadwal }} ({{ $siswa->jadwal->hari }} {{ $siswa->jadwal->jam_mulai }} - {{ $siswa->jadwal->jam_selesai }})</p>
-            <p>Total Biaya: Rp {{ number_format($biaya_total, 0, ',', '.') }}</p>
-        </div>
+
+
+
+        @if ($pembayaran->status == 'Belum Ada Pembayaran')
+            <h5>Form Pembayaran</h5>
+            <form action="{{ route('pembayaran.submit', ['siswa_id' => $siswa->id]) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="input-group input-group-dynamic my-4">
+                    <label class="form-label">Jumlah Pembayaran:</label>
+                    <input type="number" class="form-control" id="jumlah_bayar" name="jumlah_bayar" placeholder=""
+                        required>
+                </div>
+
+                <div class="input-group input-group-static">
+                    <label>Unggah Bukti Pembayaran</label>
+                    <input type="file" class="form-control" id="bukti_pembayaran" name="bukti_pembayaran"
+                        accept="image/*" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary my-4">Kirim Pembayaran</button>
+            </form>
+        @else
+            <p>Terima kasih, pembayaran Anda sudah kami terima.</p>
+        @endif
     </div>
-
-    <form action="{{ route('pembayaran.submit') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
-        <input type="hidden" name="biaya_total" value="{{ $biaya_total }}">
-        
-        <div class="form-group">
-            <label for="pembayaran">Jumlah Pembayaran</label>
-            <input type="number" class="form-control" id="pembayaran" name="pembayaran" required min="1">
-            <small class="form-text text-muted">Minimal pembayaran adalah angsuran pertama sebesar Rp {{ number_format($biaya_total / 2, 0, ',', '.') }}</small>
-        </div>
-        
-        <div class="form-group">
-            <label for="bukti_pembayaran">Upload Bukti Pembayaran</label>
-            <input type="file" class="form-control-file" id="bukti_pembayaran" name="bukti_pembayaran" required>
-        </div>
-
-        <button type="submit" class="btn btn-success mt-4">Kirim Pembayaran</button>
-    </form>
-</div>
 @endsection

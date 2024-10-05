@@ -10,7 +10,7 @@ class PenilaianKelas extends Model
 
     protected $fillable = [
         'id_siswa',
-        'id_jadwal',
+        'id_kelas',
         'id_materi',
         'nilai',
         'catatan',
@@ -33,4 +33,5 @@ class PenilaianKelas extends Model
     {
         return $this->belongsTo(Materi::class, 'id_materi');
     }
+    
 }

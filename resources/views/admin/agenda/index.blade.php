@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($agenda as $item)
+                            @foreach ($agendas as $item)
                                 <tr>
                                     <td>{{ $item->judul }}</td>
                                     <td>{{ $item->tanggal }}</td>

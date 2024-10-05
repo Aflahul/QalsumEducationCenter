@@ -62,7 +62,6 @@
                                         </form>
                                     </td>
                                 </tr>
-
                                 <!-- Modal Detail -->
                                 {{-- <div class="modal fade" id="detailJadwalModal-{{ $j->id }}" tabindex="-1">
                                     <div class="modal-dialog">
@@ -90,7 +89,6 @@
                                         </div>
                                     </div>
                                 </div> --}}
-
                                 <!-- Modal Edit -->
                                 <div class="modal fade" id="editJadwalModal-{{ $j->id }}" tabindex="-1">
                                     <div class="modal-dialog">
@@ -191,6 +189,25 @@
                 <div class="modal-body">
                     <form action="{{ route('admin.jadwal.store') }}" method="POST">
                         @csrf
+                        <div class="form-group mb-4">
+                            <label for="id_pegawai">Pilih Instruktur terlebih dahulu</label>
+                            <select name="id_pegawai" class="form-control" required>
+                                <option value="">-- Pilih Instruktur --</option>
+                                @foreach ($instruktur as $i)
+                                    <option value="{{ $i->id }}"
+                                        {{ old('id_pegawai') == $i->id ? 'selected' : '' }}>
+                                        {{ $i->nama }}  <!-- Tampilkan nama instruktur -->
+                                    </option>
+                                @endforeach
+                            </select>
+                            {{-- <label for="instruktur">Instruktur</label>
+                            <select name="instruktur" class="form-control" required>
+                                @foreach ($instruktur as $i)
+                                    <option value="{{ $i->nama }}">{{ $i->nama }}</option>
+                                @endforeach
+                            </select> --}}
+                        </div>
+                        <hr>
                         <div class="form-group">
                             <label for="nama_jadwal">Nama Jadwal</label>
                             <input type="text" name="nama_jadwal" class="form-control" required>
@@ -206,25 +223,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-
-                            <label for="id_pegawai">Pilih Instruktur</label>
-                            <select name="id_pegawai" class="form-control" required>
-                                <option value="">-- Pilih Instruktur --</option>
-                                @foreach ($instruktur as $i)
-                                    <option value="{{ $i->id }}"
-                                        {{ old('id_pegawai') == $i->id ? 'selected' : '' }}>
-                                        {{ $i->nama }} <!-- Tampilkan nama instruktur -->
-                                    </option>
-                                @endforeach
-                            </select>
-                            {{-- <label for="instruktur">Instruktur</label>
-                            <select name="instruktur" class="form-control" required>
-                                @foreach ($instruktur as $i)
-                                    <option value="{{ $i->nama }}">{{ $i->nama }}</option>
-                                @endforeach
-                            </select> --}}
-                        </div>
+                        
                         <div class="form-group">
                             <label for="hari">Hari</label>
                             <input type="text" name="hari" class="form-control" required>

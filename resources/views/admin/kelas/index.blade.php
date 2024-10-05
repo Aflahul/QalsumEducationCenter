@@ -32,7 +32,7 @@
                                     <td>{{ $k->nama_kelas }}</td>
                                     <td>{{ $k->deskripsi }}</td>
                                     <td>{{ $k->jenis_kelas }}</td>
-                                    <td>{{ $k->biaya }}</td>
+                                    <td>Rp {{ number_format($k->biaya, 0, ',', '.') }}</td>
                                     {{-- <td>{{ $k->instruktur->nama ?? 'Tidak ada' }}</td> --}}
                                     <td>
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"

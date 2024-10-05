@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\SelesaiController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\NilaiController;
@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\SyaratController;
@@ -28,15 +29,18 @@ use App\Http\Controllers\Instruktur\DashboardController as InstrukturDashboardCo
 
 // Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
-// Rute untuk admin
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    
-    // // Rute untuk Pengaturan Integrasi Pihak Ketiga (WhatsApp)
-    // Route::get('/settings/integrations/whatsapp', [AdminDashboardController::class, 'whatsappSettings'])->name('admin.settings.whatsapp');
 
-    // // Rute untuk pengingat pembayaran tertunda
-    // Route::get('/reminders/payments', [AdminDashboardController::class, 'paymentReminders'])->name('admin.reminders.payments');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/password/reset', [AuthController::class, 'showResetForm'])->name('password.request');
+Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.reset');
+
+Route::middleware('auth')->group(function () {
+// Rute untuk admin
+    Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     
     // Routes untuk mengelola staf
     Route::resource('staff', PegawaiController::class)->names([
@@ -180,20 +184,20 @@ Route::prefix('admin')->group(function () {
     ]);
 
 
+    });
 });
-
-
+   
 
     
 
-// Route untuk halaman pendaftaran siswa
-Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
-Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
+// Route untuk pendaftaran
+Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+Route::post('/pendaftaran/submit', [PendaftaranController::class, 'store'])->name('pendaftaran.submit');
 
-Route::get('/pendaftaran/selesai/{siswa_id}', [SelesaiController::class, 'index'])->name('pendaftaran.selesai');
-Route::get('/pembayaran/{siswa_id}', [PembayaranSiswaController::class, 'index'])->name('pembayaran.index');
-Route::post('/pembayaran/submit', [PembayaranSiswaController::class, 'submit'])->name('pembayaran.submit');
-Auth::routes();
+// Route untuk pembayaran
+Route::get('/pembayaran/{siswa_id}', [PendaftaranController::class, 'showPembayaran'])->name('pembayaran.index');
+Route::post('/pembayaran/{siswa_id}/submit', [PendaftaranController::class, 'storePembayaran'])->name('pembayaran.submit');
+Route::get('/pembayaran/sukses/{siswa_id}', [PendaftaranController::class, 'pembayaranSukses'])->name('pembayaran.sukses');
 
 // Rute untuk Landing Pag
 

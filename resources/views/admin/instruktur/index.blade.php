@@ -29,15 +29,6 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nomor Pegawai</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Kontak</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             @foreach ($pegawai as $p)
                                 <tr>
@@ -48,8 +39,7 @@
                                             Belum memiliki jadwal kelas
                                             <!-- Tombol Tambahkan Jadwal -->
                                             <br>
-                                            <a href="{{ route('admin.jadwal.index')  }}"
-                                                class="btn btn-primary btn-sm">
+                                            <a href="{{ route('admin.jadwal.index') }}" class="btn btn-primary btn-sm">
                                                 Tambahkan Sekarang
                                             </a>
                                         @else
@@ -77,7 +67,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus Instruktur ini?')">
                                                 Hapus
                                             </button>
                                         </form>
@@ -166,8 +156,13 @@
                                                                     <option value="Perempuan"
                                                                         {{ $p->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                         Perempuan</option>
-
                                                                 </select>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="kontak_hp">Kontak HP</label>
+                                                                <input type="text" name="kontak_hp"
+                                                                    class="form-control" id="kontak_hp"
+                                                                    value="{{ $p->kontak_hp }}" required>
                                                             </div>
                                                         </div>
 
@@ -176,11 +171,11 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="pendidikan_terakhir">Pendidikan
                                                                     Terakhir</label>
-                                                                <select name="pendidikan_terakhir" class="form-control"
+                                                                {{-- <select name="pendidikan_terakhir" class="form-control"
                                                                     id="pendidikan_terakhir" required>
                                                                     <option value="" disabled selected>Pilih
                                                                         Pendidikan Terakhir</option>
-                                                                    {{-- <option value="SD"
+                                                                    <option value="SD"
                                                                         {{ $p->pendidikan_terakhir == 'SD' ? 'selected' : '' }}>
                                                                         SD</option>
                                                                     <option value="SMP"
@@ -194,7 +189,7 @@
                                                                         D1</option>
                                                                     <option value="D2"
                                                                         {{ $p->pendidikan_terakhir == 'D2' ? 'selected' : '' }}>
-                                                                        D2</option> --}}
+                                                                        D2</option>
                                                                     <option value="D3"
                                                                         {{ $p->pendidikan_terakhir == 'D3' ? 'selected' : '' }}>
                                                                         D3</option>
@@ -204,7 +199,11 @@
                                                                     <option value="S1"
                                                                         {{ $p->pendidikan_terakhir == 'S1' ? 'selected' : '' }}>
                                                                         S1</option>
-                                                                </select>
+                                                                </select> --}}
+                                                                <input type="text" name="pendidikan_terakhir"
+                                                                    class="form-control" id="pendidikan_terakhir"
+                                                                    value="{{ $p->pendidikan_terakhir }}" required>
+
                                                             </div>
 
 

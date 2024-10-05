@@ -10,17 +10,12 @@ class PenggunaSeeder extends Seeder
 {
     public function run()
     {
-        Pengguna::create([
-            'username' => 'instruktur1',
-            'password' => Hash::make('password123'),
-            'nama' => 'Instruktur Pertama',
-            'role' => 'instruktur'
-        ]);
+        
 
         Pengguna::create([
-            'username' => 'admin1',
-            'password' => Hash::make('password123'),
-            'nama' => 'Admin Pertama',
+            'username' => 'ahmad_rasyid',
+            'password' => Hash::make('ahmad_rasyid'),
+            'nama' => 'Ahmad Rasyid',
             'role' => 'admin'
         ]);
     }

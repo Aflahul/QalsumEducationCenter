@@ -21,13 +21,13 @@
                     <div class="row">
                         <div class="col-md-3">
                             @if ($profil->logo)
-                                <img src="{{ asset('storage/' . $profil->logo) }}" alt="Logo Lembaga" class="img-fluid rounded  p-4 ">
+                                <img src="{{ asset($profil->logo) }}" alt="Logo Lembaga" class="img-fluid rounded  p-4 ">
                             @else
                                 <img src="{{ asset('img/qec.png') }}" alt="Logo Default" class="img-fluid rounded p-4">
                             @endif
                         </div>
                         <div class="col-md-9">
-                            <h4>{{ $profil->nama }}</h4>
+                            <h4 class="mb-2">{{ $profil->nama_lembaga }}</h4>
                             <p><strong>Alamat:</strong> {{ $profil->alamat }}</p>
                             <p><strong>Email:</strong> {{ $profil->email }}</p>
                             <p><strong>Telepon:</strong> {{ $profil->telepon }}</p>
@@ -61,8 +61,8 @@
 
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama Lembaga</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $profil->nama }}" required>
+                        <label for="nama_lembaga" class="form-label">Nama Lembaga</label>
+                        <input type="text" class="form-control" id="nama_lembaga" name="nama_lembaga" value="{{ $profil->nama_lembaga }}" required>
                     </div>
 
                     <div class="mb-3">

@@ -34,7 +34,7 @@ class PegawaiController extends Controller
             'alamat' => 'required',
             'kontak_hp' => 'required',
             'pendidikan_terakhir' => 'required',
-            'foto' => 'nullable|image',
+            'foto' => 'nullable|image|max:2048',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'jabatan' => 'required',
         ]);
@@ -71,7 +71,7 @@ class PegawaiController extends Controller
         $pegawai->save(); // Simpan pegawai
 
         // Simpan pengguna jika jabatan adalah admin
-        if ($request->jabatan === 'admin') {
+        if ($request->jabatan === 'Administrator') {
             $pengguna = new Pengguna();
             $pengguna->username = $pegawai->username;
             $pengguna->password = bcrypt($pegawai->username); // Set password sama dengan username
@@ -151,14 +151,14 @@ class PegawaiController extends Controller
         \Log::info('Jabatan baru: ' . $validatedData['jabatan']);
 
         // Periksa perubahan jabatan dan kelola data pengguna
-        if ($jabatanLama === 'admin' && $validatedData['jabatan'] !== 'admin') {
+        if ($jabatanLama === 'Administrator' && $validatedData['jabatan'] !== 'Administrator') {
          // Hapus data pengguna jika jabatan berubah dari admin
             $pengguna = Pengguna::where('username', $pegawai->username)->first();
             if ($pengguna) {
                 $pengguna->delete(); // Hapus data pengguna
                 \Log::info('Pengguna dihapus: ' . $pegawai->username);
             }
-        } elseif ($jabatanLama === 'admin' && $validatedData['jabatan'] === 'admin') {
+        } elseif ($jabatanLama === 'Administrator' && $validatedData['jabatan'] === 'Administrator') {
             // Update data pengguna jika tetap admin
             $pengguna = Pengguna::where('username', $pegawai->username)->first();
             if ($pengguna) {
@@ -167,7 +167,7 @@ class PegawaiController extends Controller
                 $pengguna->save();
                 \Log::info('Data pengguna diupdate: ' . $pegawai->username);
             }
-        } elseif ($jabatanLama !== 'admin' && $validatedData['jabatan'] === 'admin') {
+        } elseif ($jabatanLama !== 'Administrator' && $validatedData['jabatan'] === 'Administrator') {
             // Buat data pengguna baru jika jabatan berubah menjadi admin
             $pengguna = Pengguna::where('username', $pegawai->username)->first();
             if (!$pengguna) {

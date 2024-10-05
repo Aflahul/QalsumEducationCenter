@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // KelasSeeder::class,
             // PegawaiSeeder::class,
+            PenggunaSeeder::class,
             // JadwalSeeder::class,
             // SiswaSeeder::class,
             // MateriSeeder::class,
@@ -36,7 +37,7 @@ class DatabaseSeeder extends Seeder
             // BeritaSeeder::class,
             // GaleriSeeder::class,
             // SyaratSeeder::class,
-            ProfilSeeder::class,
+            // ProfilSeeder::class,
             
         ]);
     }

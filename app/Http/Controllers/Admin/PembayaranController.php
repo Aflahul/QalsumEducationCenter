@@ -14,9 +14,12 @@ class PembayaranController extends Controller
     {
         // Retrieve all payments and associated siswa data
         $pembayaran = Pembayaran::with('siswa.jadwal.kelas')->get();
-        $siswa = Siswa::all(); // Get all siswa for selection in the modal
+         $siswa = Siswa::doesntHave('pembayaran')->get(); // Mengambil siswa yang tidak memiliki pembayaran
+        $countSiswaBelumBayar = $siswa->count(); // Menghitung jumlah siswa yang belum membayar
+   
+        
 
-        return view('admin.pembayaran.index', compact('pembayaran', 'siswa'));
+        return view('admin.pembayaran.index', compact('pembayaran', 'siswa','countSiswaBelumBayar'));
     }
 
     public function inputSiswa(Request $request)

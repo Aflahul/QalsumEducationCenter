@@ -46,6 +46,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3 my-4">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h1>{{ $jumlahPegawai }}</h1>
+                            <span class="font-light text-xs">Jumlah Instruktur</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Grafik (Gunakan chart library seperti Chart.js) -->

@@ -21,6 +21,7 @@
                                 <th>Nama Materi</th>
                                 <th>Deskripsi</th>
                                 <th>Kelas</th>
+                                <th>Jenis Kelas</th> <!-- Tambahkan kolom untuk jenis_kelas -->
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -30,6 +31,7 @@
                                     <td>{{ $m->nama_materi }}</td>
                                     <td>{{ $m->deskripsi }}</td>
                                     <td>{{ $m->kelas->nama_kelas }}</td>
+                                    <td>{{ $m->kelas->jenis_kelas }}</td> <!-- Menampilkan jenis_kelas -->
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#editMateriModal-{{ $m->id }}">
@@ -72,13 +74,14 @@
                                                         <textarea name="deskripsi" class="form-control" id="deskripsi" required>{{ $m->deskripsi }}</textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="kelas_id">Kelas</label>
-                                                        <select name="kelas_id" id="kelas_id" class="form-control"
+                                                        <label for="id_kelas">Kelas</label>
+                                                        <select name="id_kelas" id="id_kelas" class="form-control"
                                                             required>
                                                             @foreach ($kelas as $k)
                                                                 <option value="{{ $k->id }}"
-                                                                    {{ $k->id == $m->kelas_id ? 'selected' : '' }}>
-                                                                    {{ $k->nama_kelas }}
+                                                                    {{ $k->id == $m->id_kelas ? 'selected' : '' }}>
+                                                                    {{ $k->nama_kelas }} - {{ $k->jenis_kelas }}
+                                                                    <!-- Tampilkan juga jenis_kelas di dropdown -->
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -113,7 +116,8 @@
                             <select name="id_kelas" class="form-control" id="id_kelas" required>
                                 <option value="">Pilih Kelas</option>
                                 @foreach ($kelas as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                    <option value="{{ $k->id }}">{{ $k->nama_kelas }} - {{ $k->jenis_kelas }}</option>
+                                    <!-- Tampilkan juga jenis_kelas di pilihan tambah materi -->
                                 @endforeach
                             </select>
                         </div>

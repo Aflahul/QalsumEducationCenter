@@ -10,7 +10,7 @@ class SyaratController extends Controller
 {
     public function index()
     {
-        $syarat = Syarat::first();
+        $syarat = Syarat::all();
         return view('admin.profil.lembaga.syarat.index', compact('syarat'));
     }
 

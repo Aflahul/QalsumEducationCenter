@@ -8,8 +8,6 @@
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active">Penilaian Siswa</li>
             </ol>
-            <a href="{{ route('admin.nilai.create') }}" class="btn btn-primary mb-3">Tambah Penilaian</a>
-
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
@@ -60,13 +58,14 @@
                                 </tr>
 
                                 <!-- Modal Detail Nilai -->
-                                <div class="modal fade" id="detailNilaiModal-{{ $s->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="detailNilaiLabel" aria-hidden="true">
+                                <div class="modal fade" id="detailNilaiModal-{{ $s->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="detailNilaiLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Detail Nilai Siswa: {{ $s->nama }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -99,7 +98,8 @@
                                                             @endphp
                                                             {{ $grade }}
                                                         </div>
-                                                        <div class="col-md-4">{{ $penilaian->catatan ?? 'Tidak ada catatan' }}</div>
+                                                        <div class="col-md-4">
+                                                            {{ $penilaian->catatan ?? 'Tidak ada catatan' }}</div>
                                                     </div>
                                                 @endforeach
                                                 <hr>
@@ -110,20 +110,22 @@
                                                         <div class="col-md-2"><strong>Status Sertifikat</strong></div>
                                                         <div class="col-md-10">: {{ $s->sertifikat->status }}</div>
                                                     @else
-                                                        <div class="col-md-12 text-danger">Belum ada sertifikat untuk siswa ini.</div>
+                                                        <div class="col-md-12 text-danger">Belum ada sertifikat untuk siswa
+                                                            ini.</div>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Modal Edit Nilai -->
-                                <div class="modal fade" id="editNilaiModal-{{ $s->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="editNilaiLabel" aria-hidden="true">
+                                <div class="modal fade" id="editNilaiModal-{{ $s->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="editNilaiLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <form action="{{ route('admin.nilai.update', $s->id) }}" method="POST">
@@ -139,17 +141,26 @@
                                                 <div class="modal-body">
                                                     @foreach ($s->penilaianKelas as $penilaian)
                                                         <div class="row mb-3">
-                                                            <div class="col-md-4">{{ $penilaian->materi->nama_materi }}</div>
+                                                            <div class="col-md-4">{{ $penilaian->materi->nama_materi }}
+                                                            </div>
                                                             <div class="col-md-2">
-                                                                <input type="number" name="nilai[{{ $penilaian->id }}]"
-                                                                    value="{{ $penilaian->nilai }}" class="form-control">
+                                                                <input type="number"
+                                                                    name="penilaian[{{ $penilaian->id }}][nilai]"
+                                                                    value="{{ $penilaian->nilai }}" class="form-control"
+                                                                    required>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="text"
+                                                                    name="penilaian[{{ $penilaian->id }}][catatan]"
+                                                                    value="{{ $penilaian->catatan }}" class="form-control">
                                                             </div>
                                                         </div>
                                                     @endforeach
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Tutup</button>
                                                 </div>
                                             </form>
                                         </div>

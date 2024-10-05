@@ -1,8 +1,8 @@
-@extends('layouts.guest')
+@extends('layouts.guest1')
 @section('title', 'Pendaftaran')
 @section('content')
     <div class="container pb-6">
-        <h2 class="text-center my-4">Pendaftaran</h2>
+        <h3 class="text-center my-4">Silahkan Pilih Kelas dan Jadwal Terlebih dahulu</h3>
         <div class="row">
             @foreach ($kelas as $k)
                 <div class="col-md-4 mb-4">

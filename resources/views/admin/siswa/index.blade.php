@@ -32,53 +32,41 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nomor Induk</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Jenis Kelas</th>
-                                <th>Masuk</th>
-                                <th>Progres Kelas</th>
-                                <th>Pembayaran</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             @foreach ($siswa as $s)
                                 <tr>
                                     <td>{{ $s->nomor_siswa }}</td>
                                     <td>{{ $s->nama }}</td>
-
-
                                     <td>{{ $s->jadwal->kelas->nama_kelas }}</td>
-
                                     <td>{{ $s->jadwal->kelas->jenis_kelas }}</td>
-
                                     <td>{{ $s->created_at }}</td>
-
-
                                     <td>
-                                        @foreach ($s->nilai as $nilai)
-                                            <!-- Cek apakah grade sudah ada -->
-                                            @if (is_null($nilai->grade))
-                                                <span class="btn btn-info btn-sm">Berjalan</span>
-                                            @else
-                                                <span class="btn btn-success btn-sm">Selesai</span>
-                                            @endif
-                                        @endforeach
+                                        @if ($s->nilai->isEmpty())
+                                            <span class="btn btn-warning btn-sm">Belum dinilai</span>
+                                        @else
+                                            @foreach ($s->nilai as $nilai)
+                                                <!-- Cek apakah grade sudah ada -->
+                                                @if (is_null($nilai->grade))
+                                                    <span class="btn btn-info btn-sm">Berjalan</span>
+                                                @else
+                                                    <span class="btn btn-success btn-sm">Selesai</span>
+                                                @endif
+                                            @endforeach
+                                        @endif
+
                                     </td>
 
-
                                     <td>
-
                                         @foreach ($s->pembayaran as $item)
-                                            @if ($item->status === 'Belum Lunas')
-                                                <p class="btn btn-warning btn-sm">{{ $item->status }}</p>
-                                            @else
-                                                <p class="btn btn-info btn-sm">{{ $item->status }}</p>
+                                            @if ($item->status == 'Belum Ada Pembayaran')
+                                                <span class="btn btn-danger btn-sm">Belum Ada Pembayaran</span>
+                                            @elseif ($item->status == 'Belum Lunas')
+                                                <span class="btn btn-warning btn-sm">Sisa {{ $item->sisa_pembayaran }}</span>
+                                            @elseif ($item->status == 'Lunas')
+                                                <span class="btn btn-success btn-sm">Lunas</span>
                                             @endif
                                         @endforeach
+
                                         <!-- Status bisa ditentukan berdasarkan kondisi tertentu -->
                                     </td>
                                     <td>
@@ -165,8 +153,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <!-- Modal Edit Siswa -->
                                 <div class="modal fade" id="editSiswaModal-{{ $s->id }}" tabindex="-1"
                                     aria-labelledby="editSiswaModalLabel" aria-hidden="true">
@@ -182,7 +168,7 @@
                                             <div class="modal-body">
                                                 <form
                                                     action="
-                                                {{ route('admin.pegawai.update', $s->id) }}"
+                                                {{ route('admin.siswa.update', $s->id) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
@@ -305,8 +291,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-
                     <form action="{{ route('admin.siswa.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">

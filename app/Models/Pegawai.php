@@ -16,6 +16,7 @@ class Pegawai extends Model
         'pegawai_id',
         'nama',
         'username',
+        'password',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
@@ -24,6 +25,12 @@ class Pegawai extends Model
         'jenis_kelamin',
         'foto'
     ];
+    protected $hidden = ['password'];
+     // Pastikan password di-hash
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 
     // Relasi ke tabel `Pengguna`
     public function pengguna()

@@ -15,7 +15,16 @@ return [
     |
     */
 
-    'default' => env('CACHE_STORE', 'database'),
+    'default' => env('CACHE_DRIVER', 'file'),
+
+'stores' => [
+    'database' => [
+        'driver' => 'database',
+        'table' => 'cache',
+        'connection' => null,
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------

@@ -29,15 +29,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nomor Pegawai</th>
-                                <th>Nama</th>
-                                <th>Jabatan</th>
-                                <th>Kontak</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
+                        
                         <tbody>
                             @foreach ($pegawai as $p)
                                 <tr>
@@ -159,14 +151,14 @@
                                                         <label for="jabatan">Jabatan</label>
                                                         <select name="jabatan" class="form-control" id="jabatan"
                                                             required>
-                                                            <option value="admin"
-                                                                {{ $p->jabatan == 'admin' ? 'selected' : '' }}>
+                                                            <option value="Administrator"
+                                                                {{ $p->jabatan == 'Administrator' ? 'selected' : '' }}>
                                                                 Administrator</option>
-                                                            <option value="manager"
-                                                                {{ $p->jabatan == 'manager' ? 'selected' : '' }}>Manager
+                                                            <option value="Manager"
+                                                                {{ $p->jabatan == 'Manager' ? 'selected' : '' }}>Manager
                                                             </option>
-                                                            <option value="resepsionis"
-                                                                {{ $p->jabatan == 'resepsionis' ? 'selected' : '' }}>
+                                                            <option value="Resepsionis"
+                                                                {{ $p->jabatan == 'Resepsionis' ? 'selected' : '' }}>
                                                                 Resepsionis</option>
 
                                                         </select>
@@ -246,9 +238,9 @@
                                 <div class="form-group mb-3">
                                     <label for="jabatan">Jabatan</label>
                                     <select name="jabatan" class="form-control" id="jabatan" required>
-                                        <option value="admin">Administrator</option>
-                                        <option value="manager">Manager</option>
-                                        <option value="resepsionis">Resepsionis</option>
+                                        <option value="Administrator">Administrator</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Resepsionis">Resepsionis</option>
 
                                     </select>
                                 </div>

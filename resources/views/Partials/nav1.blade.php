@@ -1,7 +1,7 @@
 <nav style="background-color: #F6FB7A"
     class="navbar navbar-expand-lg border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
     <div class="container-fluid px-0">
-        <a class="navbar-brand font-weight-normal ms-sm-3" href="#">
+        <a class="navbar-brand font-weight-normal ms-sm-3" href="{{ route('home') }}">
             <img src="{{ asset('uploads/logo/logo-qalsum-education-center.png') }}" class="w-10" alt=""> Qalsum Education Center
         </a>
         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
@@ -16,27 +16,27 @@
         <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
             <ul class="navbar-nav navbar-nav-hover ms-auto">
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                    <a href="#programkursus" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
+                    <a href="{{route('home')}}#programkursus" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
                         Program Kursus
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                    <a href="#jadwalkursus" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
+                    <a href="{{route('home')}}#jadwalkursus" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
                         Jadwal Kursus
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                    <a href="#galeri" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
+                    <a href="{{route('home')}}#galeri" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
                         Galeri
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                    <a href="#agenda" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
+                    <a href="{{route('home')}}#agenda" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
                         Agenda
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
-                    <a href="#berita" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
+                    <a href="{{route('home')}}#berita" class="nav-link ps-2 d-flex cursor-pointer align-items-center">
                         Berita
                     </a>
                 </li>
@@ -51,12 +51,12 @@
                         aria-labelledby="dropdownMenuBlocks">
                         <div class="d-none d-lg-block">
                             <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="#profillembaga">
+                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="{{route('home')}}#profillembaga">
                                     Profil Lembaga
                                 </a>
                             </li>
                             <li class="nav-item dropdown dropdown-hover dropdown-subitem">
-                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="#syaratdanketentuan">
+                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="{{route('home')}}#syaratdanketentuan">
                                     Syarat dan Ketentuan
                                 </a>
                             </li>
