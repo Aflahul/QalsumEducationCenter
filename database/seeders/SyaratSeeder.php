@@ -7,10 +7,9 @@ use App\Models\Syarat;
 
 class SyaratSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        Syarat::create([
-            'konten' => 'Berikut adalah syarat dan ketentuan yang berlaku di lembaga kami...',
-        ]);
+        Syarat::create(['judul' => 'Fotokopi KTP', 'deskripsi' => '2 lembar']);
+        Syarat::create(['judul' => 'Pas Foto', 'deskripsi' => 'Ukuran 3x4, 2 lembar']);
     }
 }

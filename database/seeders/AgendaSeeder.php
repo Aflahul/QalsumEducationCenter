@@ -7,20 +7,18 @@ use App\Models\Agenda;
 
 class AgendaSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Agenda::create([
-            'judul' => 'Pembukaan Kursus Baru',
-            'tanggal' => '2024-05-01',
-            'deskripsi' => 'Kami membuka pendaftaran untuk kursus baru mulai bulan Mei.',
+            'judul' => 'Pelatihan Komputer Dasar',
+            'tanggal' => '2025-09-01',
+            'deskripsi' => 'Pelatihan komputer dasar untuk pemula.'
         ]);
 
         Agenda::create([
-            'judul' => 'Workshop Laravel',
-            'tanggal' => '2024-06-15',
-            'deskripsi' => 'Workshop intensif tentang pengembangan aplikasi dengan Laravel.',
+            'judul' => 'Workshop Desain Grafis',
+            'tanggal' => '2025-09-15',
+            'deskripsi' => 'Pengenalan software desain grafis.'
         ]);
-
-        // Tambahkan agenda lainnya sesuai kebutuhan
     }
 }

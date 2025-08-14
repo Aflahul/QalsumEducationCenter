@@ -1,71 +1,94 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Pengguna;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use App\Models\Instruktur;
 
 class AuthController extends Controller
 {
-    // Tampilkan halaman login
+    /**
+     * Tampilkan halaman login
+     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
+    /**
+     * Proses login admin
+     */
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required',
-            'password' => 'required',
+            'nama' => 'required|string',
+            'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('username', 'password');
+        // Cari instruktur dengan jabatan admin
+        $instruktur = Instruktur::where('nama', $request->nama)
+                                ->where('jabatan', 'admin')
+                                ->first();
 
-        if (Auth::attempt($credentials)) {
-            if (Auth::user()->role !== 'admin') {
-                Auth::logout();
-                return redirect()->route('login')->with('error', 'Anda tidak memiliki akses.');
-            }
-            return redirect()->route('admin.dashboard')->with('message', 'Selamat datang kembali');
+        if (!$instruktur) {
+            return back()->withErrors(['nama' => 'Admin tidak ditemukan.']);
         }
 
-        return back()->with('error', 'Username atau password salah.');
+        // Cek password
+        if (!Hash::check($request->password, $instruktur->password)) {
+            return back()->withErrors(['password' => 'Password salah.']);
+        }
+
+        // Simpan session
+        Session::put('instruktur_id', $instruktur->id);
+        Session::put('instruktur_nama', $instruktur->nama);
+        Session::put('instruktur_jabatan', $instruktur->jabatan);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Selamat datang kembali, '.$instruktur->nama);
     }
 
-
-    // Logout
-    public function logout(Request $request)
+    /**
+     * Logout admin
+     */
+    public function logout()
     {
-        Auth::logout();
+        Session::flush(); // Hapus semua session
         return redirect()->route('login');
     }
 
+    /**
+     * Tampilkan form reset password
+     */
     public function showResetForm()
-{
-    return view('auth.reset');
-}
-
-public function resetPassword(Request $request)
-{
-    $request->validate(['username' => 'required']);
-    
-    $pengguna = Pengguna::where('username', $request->username)->first();
-    
-    if (!$pengguna) {
-        return back()->with('error', 'Username tidak ditemukan.');
+    {
+        return view('auth.password_reset');
     }
 
-    // Logika untuk reset password, misalnya mengirim email atau memberikan notifikasi
-    // atau bahkan mereset ke password default yang bisa diubah nanti.
-    $newPassword = 'newpassword'; // Bisa dibuat lebih random atau melalui email
-    $pengguna->password = bcrypt($newPassword);
-    $pengguna->save();
+    /**
+     * Proses reset password admin
+     */
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'password' => 'required|string|confirmed', // harus ada password_confirmation
+        ]);
 
-    return redirect()->route('login')->with('message', 'Password berhasil direset l default "Administrator". Silahkan login.');
-}
+        // Cari admin berdasarkan nama
+        $instruktur = Instruktur::where('nama', $request->nama)
+                                ->where('jabatan', 'admin')
+                                ->first();
 
+        if (!$instruktur) {
+            return back()->withErrors(['nama' => 'Admin tidak ditemukan.']);
+        }
+
+        // Update password
+        $instruktur->password = Hash::make($request->password);
+        $instruktur->save();
+
+        return redirect()->route('login')->with('success', 'Password berhasil diubah. Silahkan login.');
+    }
 }

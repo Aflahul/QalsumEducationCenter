@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\Materi;
-use App\Models\PenilaianKelas;
+use App\Models\Penilaian;
 
 class PenilaianKelasSeeder extends Seeder
 {

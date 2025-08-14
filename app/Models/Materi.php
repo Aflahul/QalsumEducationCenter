@@ -11,21 +11,18 @@ class Materi extends Model
     protected $table = 'materi';
 
     protected $fillable = [
+        'id_kelas',
         'nama_materi',
-        'deskripsi',
-        'id_kelas', // Menghubungkan dengan kelas
+        'deskripsi'
     ];
 
-    // Relasi dengan kelas
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 
-    // Relasi dengan penilaian_kelas
-     public function penilaianKelas()
-{
-    return $this->hasMany(PenilaianKelas::class, 'id_materi');
-}
-
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'id_materi');
+    }
 }

@@ -7,18 +7,9 @@ use App\Models\Galeri;
 
 class GaleriSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        Galeri::create([
-            'judul' => 'Kegiatan Kursus April',
-            'gambar' => 'galeri1.jpg',
-        ]);
-
-        Galeri::create([
-            'judul' => 'Workshop Laravel',
-            'gambar' => 'galeri2.jpg',
-        ]);
-
-        // Tambahkan galeri lainnya sesuai kebutuhan
+        Galeri::create(['judul' => 'Kegiatan Belajar', 'foto' => null]);
+        Galeri::create(['judul' => 'Wisuda Siswa', 'foto' => null]);
     }
 }

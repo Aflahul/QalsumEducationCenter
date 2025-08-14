@@ -12,21 +12,44 @@ class Sertifikat extends Model
     protected $table = 'sertifikat';
 
     protected $fillable = [
-        'id_siswa',
-        'id_kelas',
-        'nilai_akhir',
-        'tanggal_penyelesaian',
+        'pendaftaran_id',
         'nomor_sertifikat',
-        'status',
+        'tanggal_terbit',
+        'nilai_rata_rata',
+        'predikat_kelulusan',
     ];
 
-    public function siswa()
+    public static function boot()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
+        parent::boot();
+
+        // Event otomatis sebelum sertifikat dibuat
+        static::creating(function ($sertifikat) {
+            // Ambil semua penilaian siswa di pendaftaran ini
+            $penilaian = $sertifikat->pendaftaran->penilaian;
+
+            if ($penilaian->count() > 0) {
+                // Hitung rata-rata nilai
+                $rataRata = $penilaian->avg('nilai');
+                $sertifikat->nilai_rata_rata = $rataRata;
+
+                // Tentukan predikat kelulusan berdasarkan rata-rata
+                if ($rataRata >= 85) {
+                    $sertifikat->predikat_kelulusan = 'Sangat Memuaskan';
+                } elseif ($rataRata >= 75) {
+                    $sertifikat->predikat_kelulusan = 'Memuaskan';
+                } elseif ($rataRata >= 65) {
+                    $sertifikat->predikat_kelulusan = 'Cukup';
+                } else {
+                    $sertifikat->predikat_kelulusan = 'Tidak Lulus';
+                }
+            }
+        });
     }
 
-    public function kelas()
+    // Relasi ke pendaftaran
+    public function pendaftaran()
     {
-        return $this->belongsTo(Kelas::class, 'id_kelas');
+        return $this->belongsTo(Pendaftaran::class);
     }
 }

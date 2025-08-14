@@ -9,32 +9,23 @@ class Pembayaran extends Model
 {
     use HasFactory;
 
+    // Nama tabel di database
     protected $table = 'pembayaran';
 
     protected $fillable = [
-        'id_siswa', 
-        'biaya_total',
-        'angsuran1',
-        'angsuran2',
-        'sisa_pembayaran',
-        'bukti',
-        'status'
+        'id_pendaftaran', // Relasi ke tabel pendaftaran
+        'tanggal_bayar',  // Tanggal pembayaran
+        'jumlah',         // Jumlah yang dibayar
+        'angsuran_ke',    // 1 atau 2
+        'bukti_pembayaran', // Path/file bukti pembayaran
+        'status'          // pending, diterima, ditolak
     ];
 
-    public function siswa()
+    /**
+     * Relasi ke model Pendaftaran
+     */
+    public function pendaftaran()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
-    }
-
-    // Relasi ke Jadwal melalui Siswa
-    public function jadwal()
-    {
-        return $this->hasOneThrough(Jadwal::class, Siswa::class, 'id', 'id', 'id_siswa', 'id_jadwal');
-    }
-
-    // Relasi ke Kelas melalui Jadwal
-    public function kelas()
-    {
-        return $this->hasOneThrough(Kelas::class, Jadwal::class, 'id', 'id', 'id_siswa', 'id_kelas');
+        return $this->belongsTo(Pendaftaran::class, 'id_pendaftaran');
     }
 }

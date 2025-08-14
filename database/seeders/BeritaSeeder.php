@@ -7,22 +7,16 @@ use App\Models\Berita;
 
 class BeritaSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Berita::create([
-            'judul' => 'Kursus Pemrograman Gratis',
-            'konten' => 'Kami menawarkan kursus pemrograman gratis untuk masyarakat.',
-            'tanggal_publikasi' => '2024-04-20',
-            'gambar' => 'berita1.jpg',
+            'judul' => 'Pembukaan Kelas Baru',
+            'konten' => 'Kami membuka kelas baru di bulan September.'
         ]);
 
         Berita::create([
-            'judul' => 'Webinar Keamanan Siber',
-            'konten' => 'Ikuti webinar tentang keamanan siber yang akan datang.',
-            'tanggal_publikasi' => '2024-05-10',
-            'gambar' => 'berita2.jpg',
+            'judul' => 'Kunjungan Dinas Pendidikan',
+            'konten' => 'Dinas Pendidikan mengunjungi LKP Contoh.'
         ]);
-
-        // Tambahkan berita lainnya sesuai kebutuhan
     }
 }

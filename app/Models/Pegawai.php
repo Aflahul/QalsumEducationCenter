@@ -3,45 +3,41 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; // kalau pegawai juga dipakai untuk login
+use Illuminate\Notifications\Notifiable;
 
-class Pegawai extends Model
+class Pegawai extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'pegawai';
-
-    // Tentukan kolom mana yang dapat diisi
     protected $fillable = [
-        'pegawai_id',
         'nama',
-        'username',
         'password',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
         'pendidikan_terakhir',
+        'bidang_keahlian',
+        'status',
         'jabatan',
         'jenis_kelamin',
-        'foto'
+        'foto',
     ];
-    protected $hidden = ['password'];
-     // Pastikan password di-hash
-    public function setPasswordAttribute($value)
+
+    protected $hidden = [
+        'password',
+    ];
+
+    // Relasi ke kelas (sebagai instruktur)
+    public function kelas()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->hasMany(Kelas::class, 'id_instruktur');
     }
 
-    // Relasi ke tabel `Pengguna`
-    public function pengguna()
+    // Scope untuk ambil instruktur saja
+    public function scopeInstruktur($query)
     {
-        return $this->hasOne(Pengguna::class, 'username', 'username');
-        // return $this->belongsTo(Pengguna::class, 'username', 'username');
-    }
-
-    // Relasi ke tabel `Jadwal` (untuk instruktur)
-    public function jadwal()
-    {
-        return $this->hasMany(Jadwal::class, 'id_pegawai', 'id');
+        return $query->where('jabatan', 'instruktur');
     }
 }
