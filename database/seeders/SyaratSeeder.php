@@ -9,7 +9,7 @@ class SyaratSeeder extends Seeder
 {
     public function run(): void
     {
-        Syarat::create(['judul' => 'Fotokopi KTP', 'deskripsi' => '2 lembar']);
-        Syarat::create(['judul' => 'Pas Foto', 'deskripsi' => 'Ukuran 3x4, 2 lembar']);
+        Syarat::create(['konten' => 'Fotokopi KTP: 2 lembar']);
+        Syarat::create(['konten' => 'Pas Foto: Ukuran 3x4, 2 lembar']);
     }
 }

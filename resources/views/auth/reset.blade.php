@@ -34,3 +34,27 @@
                                     <label class="form-label">Username</label>
                                     <input type="text" name="username" class="form-control" required autofocus>
                                 </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label class="form-label">Password Baru</label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label class="form-label">Konfirmasi Password Baru</label>
+                                    <input type="password" name="password_confirmation" class="form-control" required>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2">Reset Password</button>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-sm mt-3">
+                                        Sudah ingat password? <a href="{{ route('login') }}" class="text-primary font-weight-bold">Login di sini</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

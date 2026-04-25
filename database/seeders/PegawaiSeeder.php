@@ -19,6 +19,8 @@ class PegawaiSeeder extends Seeder
             'pendidikan_terakhir' => 'S1 Informatika',
             'jabatan' => 'admin',
             'jenis_kelamin' => 'L',
+            'bidang_keahlian' => 'IT Support',
+            'status' => 'aktif',
             'foto' => null
         ]);
     }

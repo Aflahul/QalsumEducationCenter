@@ -44,7 +44,7 @@ return [
     'providers' => [
         'pengguna' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Pengguna::class, // Model Pengguna untuk autentikasi
+            'model' => App\Models\Pegawai::class, // Model Pegawai untuk autentikasi
         ],
     ],
 

@@ -19,7 +19,6 @@ use Database\Seeders\PenilaianSeeder;
 use Database\Seeders\InstrukturSeeder;
 use Database\Seeders\PembayaranSeeder;
 use Database\Seeders\SertifikatSeeder;
-use Database\Seeders\PendaftaranSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,10 +39,9 @@ class DatabaseSeeder extends Seeder
             MateriSeeder::class,
             JadwalSeeder::class,
             SiswaSeeder::class,
-            PendaftaranSeeder::class,
-            PembayaranSeeder::class,
-            PenilaianSeeder::class,
-            SertifikatSeeder::class,
+            // PembayaranSeeder::class,
+            // PenilaianSeeder::class,
+            // SertifikatSeeder::class,
             
         ]);
     }

@@ -3,22 +3,25 @@
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Pembayaran</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Pembayaran</li>
-            </ol>
-            <div class="mb-4">
-                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputSiswaModal">
-                    Tambah Pembayaran Siswa
-                </button> --}}
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Daftar Pembayaran Siswa
+            
+            <div class="page-header mt-4">
+                <div>
+                    <h2 class="fw-bold text-dark mb-1">Data Pembayaran</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Pembayaran</li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="card-body">
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex align-items-center">
+                    <i class="fas fa-money-bill-wave me-2 text-success"></i>
+                    <h5 class="fw-bold mb-0">Rincian Pembayaran Siswa</h5>
+                </div>
+                <div class="card-body p-4">
                     <table id="datatablesSimple" class="table table-bordered">
                         <thead>
                             <tr>

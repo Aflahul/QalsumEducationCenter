@@ -18,6 +18,7 @@ return new class extends Migration
         $table->date('tanggal_terbit');
         $table->decimal('nilai_rata_rata', 5, 2)->nullable();
         $table->string('predikat_kelulusan')->nullable(); // "Sangat Memuaskan"
+        $table->string('status')->default('Layak');
         $table->timestamps();
     });
 }

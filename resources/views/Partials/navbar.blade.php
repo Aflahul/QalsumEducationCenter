@@ -1,13 +1,13 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #F6FB7A">
-    <!-- Navbar -->
-    <div>
-        <a class="navbar-brand ps-3 text-dark fs-6" href="#" style="">
-            <img src="{{ asset('uploads/logo/logo-qalsum-education-center.png') }}" class="img-fluid" style="max-height: 35px;" alt="">
-            Qalsum Education Center</a>
-    </div>
+<nav class="sb-topnav navbar navbar-expand navbar-light shadow-sm">
+    <!-- Navbar Brand -->
+    <a class="navbar-brand ps-3 d-flex align-items-center" href="{{ url('admin/dashboard') }}">
+        <img src="{{ asset('uploads/logo/logo-qalsum-education-center.png') }}" class="me-2" style="max-height: 35px;" alt="Logo">
+        <span class="d-none d-lg-inline">Qalsum Center</span>
+    </a>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-            class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!">
+        <i class="fas fa-bars"></i>
+    </button>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">

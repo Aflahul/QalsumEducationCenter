@@ -12,7 +12,7 @@ class JadwalSeeder extends Seeder
         Jadwal::insert([
             [
                 'id_kelas' => 1, // Pastikan ID ini ada di tabel kelas
-                'id_pegawai' => 1, // Pastikan ID ini ada di tabel pegawai
+                'id_instruktur' => 1, // Pastikan ID ini ada di tabel pegawai
                 'nama_jadwal' => 'Jadwal Kelas Pemula',
                 'hari' => 'Senin',
                 'jam_mulai' => '08:00:00',
@@ -22,7 +22,7 @@ class JadwalSeeder extends Seeder
             ],
             [
                 'id_kelas' => 1,
-                'id_pegawai' => 2,
+                'id_instruktur' => 2,
                 'nama_jadwal' => 'Jadwal Kelas Pemula Sore',
                 'hari' => 'Rabu',
                 'jam_mulai' => '15:00:00',
@@ -32,7 +32,7 @@ class JadwalSeeder extends Seeder
             ],
             [
                 'id_kelas' => 2,
-                'id_pegawai' => 3,
+                'id_instruktur' => 3,
                 'nama_jadwal' => 'Jadwal Kelas Menengah',
                 'hari' => 'Selasa',
                 'jam_mulai' => '10:00:00',
@@ -42,7 +42,7 @@ class JadwalSeeder extends Seeder
             ],
             [
                 'id_kelas' => 3,
-                'id_pegawai' => 4,
+                'id_instruktur' => 4,
                 'nama_jadwal' => 'Jadwal Kelas Private',
                 'hari' => 'Kamis',
                 'jam_mulai' => '13:00:00',

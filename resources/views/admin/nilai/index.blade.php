@@ -3,17 +3,25 @@
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Penilaian Siswa</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Penilaian Siswa</li>
-            </ol>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Daftar Siswa
+            
+            <div class="page-header mt-4">
+                <div>
+                    <h2 class="fw-bold text-dark mb-1">Penilaian Siswa</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Penilaian</li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="card-body">
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex align-items-center">
+                    <i class="fas fa-edit me-2 text-info"></i>
+                    <h5 class="fw-bold mb-0">Daftar Penilaian Siswa</h5>
+                </div>
+                <div class="card-body p-4">
                     <table id="datatablesSimple" class="table table-bordered">
                         <thead>
                             <tr>

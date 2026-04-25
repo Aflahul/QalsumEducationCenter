@@ -16,6 +16,8 @@ class Pembayaran extends Model
         'id_pendaftaran', // Relasi ke tabel pendaftaran
         'tanggal_bayar',  // Tanggal pembayaran
         'jumlah',         // Jumlah yang dibayar
+        'biaya_total',
+        'sisa_pembayaran',
         'angsuran_ke',    // 1 atau 2
         'bukti_pembayaran', // Path/file bukti pembayaran
         'status'          // pending, diterima, ditolak
@@ -27,5 +29,20 @@ class Pembayaran extends Model
     public function pendaftaran()
     {
         return $this->belongsTo(Pendaftaran::class, 'id_pendaftaran');
+    }
+
+    /**
+     * Relasi ke model Siswa (melalui Pendaftaran)
+     */
+    public function siswa()
+    {
+        return $this->hasOneThrough(
+            Siswa::class,
+            Pendaftaran::class,
+            'id', // Key on pendaftaran
+            'id', // Key on siswa
+            'id_pendaftaran', // Key on pembayaran
+            'id_siswa' // Key on pendaftaran
+        );
     }
 }

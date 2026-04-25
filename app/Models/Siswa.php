@@ -13,6 +13,7 @@ class Siswa extends Model
     protected $fillable = [
         'nomor_siswa',
         'nama',
+        'id_jadwal',
         'tanggal_lahir',
         'alamat',
         'kontak_hp',
@@ -20,6 +21,11 @@ class Siswa extends Model
         'jenis_kelamin',
         'foto'
     ];
+
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class, 'id_jadwal');
+    }
 
     public function pembayaran()
     {

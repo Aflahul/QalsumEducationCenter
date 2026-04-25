@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_siswa')->unique();
             $table->string('nama');
+            $table->foreignId('id_jadwal')->nullable()->constrained('jadwal')->onDelete('set null');
             $table->date('tanggal_lahir')->nullable();
             $table->text('alamat')->nullable();
             $table->string('kontak_hp')->nullable();

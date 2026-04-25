@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Kelas;
-use App\Models\Nilai;
+use App\Models\Penilaian;
 use App\Models\Siswa;
 use App\Models\Jadwal;
 use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Sertifikat;
 use App\Models\Pendaftaran;
+use App\Models\Agenda;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -33,8 +34,8 @@ class DashboardController extends Controller
         // $jumlahKelasAktif = Kelas::count(); // Hitung jumlah kelas aktif
         $jumlahPembayaranLunas = Pembayaran::where('status', 'Lunas')->count(); // Hitung jumlah pembayaran lunas
         $jumlahPembayarantunda = Pembayaran::where('status', 'Belum Lunas')->count(); // Hitung jumlah pembayaran lunas
-        $jumlahLulus = Nilai::where('nilai_rata_rata', '>=', 75)->count(); // Hitung jumlah siswa yang lulus
-        $jumlahTidakLulus = Nilai::where('nilai_rata_rata', '<', 75)->count(); // Hitung jumlah siswa yang tidak lulus
+        $jumlahLulus = Penilaian::where('nilai', '>=', 75)->count(); // Hitung jumlah siswa yang lulus
+        $jumlahTidakLulus = Penilaian::where('nilai', '<', 75)->count(); // Hitung jumlah siswa yang tidak lulus
 
 
         // Jumlah pendaftaran baru (misalnya dalam 30 hari terakhir)
@@ -58,6 +59,18 @@ class DashboardController extends Controller
             ->whereHas('jadwal')
             ->get();
 
+        // Top 3 Siswa Berprestasi
+        $top_siswa = Penilaian::with('siswa')
+            ->orderBy('nilai', 'desc')
+            ->take(3)
+            ->get();
+
+        // Top 5 Agenda
+        $agendas = Agenda::orderBy('tanggal', 'asc')
+            ->where('tanggal', '>=', now())
+            ->take(5)
+            ->get();
+
         // Kirim data ke view
         return view('admin.dashboard', [
             'jumlah_siswa' => $jumlah_siswa,
@@ -74,6 +87,8 @@ class DashboardController extends Controller
             'jumlahSiswaPerJadwal'=>$jumlahSiswaPerJadwal,
             'jumlahTidakLulus'=>$jumlahTidakLulus,
             'jumlahPegawai'=>$jumlahPegawai,
+            'top_siswa' => $top_siswa,
+            'agendas' => $agendas,
         ]);
     }
 //     public function index()

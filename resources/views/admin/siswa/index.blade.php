@@ -3,22 +3,30 @@
 @section('content')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Siswa</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Siswa</li>
-            </ol>
-            <div class="mb-4">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSiswaModal">
-                    Tambah Siswa
-                </button>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Daftar Siswa
+            
+            <div class="page-header mt-4">
+                <div>
+                    <h2 class="fw-bold text-dark mb-1">Data Siswa</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Siswa</li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="card-body">
+                <div>
+                    <button type="button" class="btn btn-primary shadow-sm" data-toggle="modal" data-target="#addSiswaModal">
+                        <i class="fas fa-plus me-2"></i>Tambah Siswa
+                    </button>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex align-items-center">
+                    <i class="fas fa-table me-2 text-primary"></i>
+                    <h5 class="fw-bold mb-0">Daftar Siswa Terdaftar</h5>
+                </div>
+                <div class="card-body p-4">
                     <table id="datatablesSimple" class="table table-bordered">
                         <thead>
                             <tr>
